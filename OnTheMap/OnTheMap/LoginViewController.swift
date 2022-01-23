@@ -20,6 +20,9 @@ class LoginViewController: UIViewController {
         @IBOutlet weak var loginViaWebsiteButton: UIButton!
         @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
         
+        
+    
+    
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             

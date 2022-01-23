@@ -9,40 +9,34 @@ import Foundation
 
 class OTMClient {
     
-    static let apiKey = "AegonTar0919!"
     
     struct Auth {
-        static var accountId = 0
         static var requestToken = ""
         static var sessionId = ""
     }
     
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1/session"
-        static let apiKeyParam = "?api_key=\(OTMClient.apiKey)"
         
         case getRequestToken
         case login
         case createSessionId
         case logout
         case webAuth
-        case search(String)
         
         var stringValue: String {
             switch self {
 
             case .getRequestToken:
-                return Endpoints.base + "/authentication/token/new" + Endpoints.apiKeyParam
+                return Endpoints.base
             case .login:
-                return Endpoints.base + "/authentication/token/validate_with_login" + Endpoints.apiKeyParam
+                return Endpoints.base
             case .createSessionId:
-                return Endpoints.base + "/authentication/session/new" + Endpoints.apiKeyParam
+                return Endpoints.base
             case .logout:
-                return Endpoints.base + "/authentication/session" + Endpoints.apiKeyParam
+                return Endpoints.base
             case .webAuth:
-                return "https://www.themoviedb.org/authenticate/\(Auth.requestToken)?redirect_to=themoviemanager:authenticate"
-            case .search(let query):
-                return Endpoints.base + "/search/movie" + Endpoints.apiKeyParam + "&query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))"
+                return Endpoints.base
             }
         }
         var url: URL {
@@ -85,22 +79,15 @@ class OTMClient {
           if error != nil { // Handle error…
               return
           }
-        //print(task.data)
           print("checkpoint 2")
           let range = 5..<data!.count
           let newData = data?.subdata(in: range) /* subset response data! */
           print("checkpoint 3")
           print(String(data: newData!, encoding: .utf8)!)
           print("------------")
-          print("checkpoint 4")
         }
-        print("Task Parameter Values:")
-        //print(task.data)
-        print(task.response)
-        print(task.error)
-
         task.resume()
-        print("checkpoint 5")
+        print("checkpoint 4")
     }
     
     
@@ -114,8 +101,9 @@ class OTMClient {
             }
         }
     }
-    
+    //https://knowledge.udacity.com/questions/764046
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
+        print("\(url)")
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else {
                 DispatchQueue.main.async {
@@ -130,20 +118,9 @@ class OTMClient {
                     completion(responseObject, nil)
                 }
             } catch {
-                do {
-                    let errorResponse = try decoder.decode(OTMResponse.self, from: data) as Error
-                    DispatchQueue.main.async {
-                        completion(nil, errorResponse)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion(nil, error)
-                    }
-                }
             }
         }
         task.resume()
-        
         return task
     }
     
