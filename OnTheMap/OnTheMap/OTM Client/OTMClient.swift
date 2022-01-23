@@ -55,7 +55,7 @@ class OTMClient {
         let body = PostSession(requestToken: Auth.requestToken)
         taskForPOSTRequest(url: Endpoints.createSessionId.url, responseType: SessionResponse.self, body: body) { response, error in
             if let response = response {
-                Auth.sessionId = response.sessionId
+                Auth.sessionId = response.session.sessionId
                 completion(true, nil)
             } else {
                 completion(false, nil)
@@ -65,6 +65,7 @@ class OTMClient {
 
     //https://knowledge.udacity.com/questions/71759
     //https://knowledge.udacity.com/questions/270411
+    //https://knowledge.udacity.com/questions/175154
     class func login(username: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
         print("func login called")
         let body = LoginRequest(username: username, password: password)
@@ -78,18 +79,26 @@ class OTMClient {
         let session = URLSession.shared
         print("checkpoint 1")
         // Error in handleRequestTokenResponse here
-        print("\(request)")
+        print("DataTask:")
         let task = session.dataTask(with: request) { data, response, error in
+
           if error != nil { // Handle error…
               return
           }
+        //print(task.data)
           print("checkpoint 2")
           let range = 5..<data!.count
           let newData = data?.subdata(in: range) /* subset response data! */
           print("checkpoint 3")
           print(String(data: newData!, encoding: .utf8)!)
+          print("------------")
           print("checkpoint 4")
         }
+        print("Task Parameter Values:")
+        //print(task.data)
+        print(task.response)
+        print(task.error)
+
         task.resume()
         print("checkpoint 5")
     }

@@ -9,12 +9,28 @@ import Foundation
 
 struct SessionResponse: Codable {
     
-    let success: Bool
-    let sessionId: String
+    let account: account
+    let session: session
+
     
-    enum CodingKeys: String, CodingKey {
-        case success
-        case sessionId = "session_id"
+    struct account: Codable {
+        let registered: Bool
+        let key: String
+        
+        enum CodingKeys: String, CodingKey {
+            case registered = "registered"
+            case key = "key"
+        }
+        
+    }
+    struct session: Codable {
+        let sessionId: String
+        let expiration: String
+        
+        enum CodingKeys: String, CodingKey {
+            case sessionId = "id"
+            case expiration = "expiration"
+        }
     }
     
 }

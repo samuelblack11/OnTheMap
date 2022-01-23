@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
         @IBAction func loginTapped(_ sender: UIButton) {
             setLoggingIn(true)
             OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
-            OTMClient.getRequestToken(completion: handleRequestTokenResponse(success:error:))
+            OTMClient.getRequestToken(completion: handleRequestTokenResponse(success: error:))
         }
         
         @IBAction func loginViaWebsiteTapped() {
@@ -47,8 +47,8 @@ class LoginViewController: UIViewController {
         }
         
         func handleRequestTokenResponse(success: Bool, error: Error?) {
-            print("\(success)")
             print("trying....")
+            print("Success: \(success)")
             if success {
                 print("\(emailTextField.text)")
                 print("\(passwordTextField.text)")
