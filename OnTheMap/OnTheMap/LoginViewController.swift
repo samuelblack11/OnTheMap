@@ -20,12 +20,9 @@ class LoginViewController: UIViewController {
         @IBOutlet weak var loginViaWebsiteButton: UIButton!
         @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
         
-        
-    
     
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            
             emailTextField.text = ""
             passwordTextField.text = ""
         }
@@ -34,20 +31,41 @@ class LoginViewController: UIViewController {
         @IBAction func loginTapped(_ sender: UIButton) {
             setLoggingIn(true)
             OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
-            OTMClient.getRequestToken(completion: handleRequestTokenResponse(success: error:))
         }
         
         @IBAction func loginViaWebsiteTapped() {
             setLoggingIn(true)
             OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
-            OTMClient.getRequestToken() { success, error in
-                if success {
-                    UIApplication.shared.open(OTMClient.Endpoints.webAuth.url, options: [:], completionHandler: nil)
-                } else {
-                    self.showLoginFailure(message: error?.localizedDescription ?? "")
-                }
-            }
         }
+    
+    func handleLoginResponse(success: Bool, error: Error?) {
+        print("\(success)")
+        if success {
+            print("success in handleLoginResponse")
+            OTMClient.createSessionId(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: handleSessionResponse(success:error:))
+        } else {
+            print("error in handleLoginResponse")
+            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func handleSessionResponse(success: Bool, error: Error?) {
+        setLoggingIn(false)
+        if success {
+            performSegue(withIdentifier: "completeLogin", sender: nil)
+        } else {
+            print("error in handleLoginResponse")
+            showLoginFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
         
         func handleRequestTokenResponse(success: Bool, error: Error?) {
             print("trying....")
@@ -62,25 +80,7 @@ class LoginViewController: UIViewController {
             }
         }
         
-        func handleLoginResponse(success: Bool, error: Error?) {
-            if success {
-                print("success in handleLoginResponse")
-                OTMClient.createSessionId(completion: handleSessionResponse(success:error:))
-            } else {
-                print("error in handleLoginResponse")
-                showLoginFailure(message: error?.localizedDescription ?? "")
-            }
-        }
-        
-        func handleSessionResponse(success: Bool, error: Error?) {
-            setLoggingIn(false)
-            if success {
-                performSegue(withIdentifier: "completeLogin", sender: nil)
-            } else {
-                print("error in handleLoginResponse")
-                showLoginFailure(message: error?.localizedDescription ?? "")
-            }
-        }
+
         
         func setLoggingIn(_ loggingIn: Bool) {
             if loggingIn {

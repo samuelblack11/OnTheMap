@@ -107,7 +107,7 @@
                         <outlet property="loginButton" destination="Sjc-lI-qVl" id="h1g-ZH-WuF"/>
                         <outlet property="loginViaWebsiteButton" destination="tNK-gy-lwD" id="Ton-u3-1I1"/>
                         <outlet property="passwordTextField" destination="UwQ-Nt-igA" id="82g-ye-LBU"/>
-                        <segue destination="G18-YZ-HaT" kind="show" destinationCreationSelector="loginToMap:" id="2jN-EJ-d86"/>
+                        <segue destination="G18-YZ-HaT" kind="show" identifier="completeLogin" destinationCreationSelector="loginToMap:" id="2jN-EJ-d86"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e36-Tf-Hyg" sceneMemberID="firstResponder"/>
