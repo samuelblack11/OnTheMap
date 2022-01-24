@@ -29,7 +29,10 @@ class LoginViewController: UIViewController {
         
         //https://knowledge.udacity.com/questions/310855
         @IBAction func loginTapped(_ sender: UIButton) {
+            print("loginTapped Called")
             setLoggingIn(true)
+            print("setLoggingIn worked....")
+            print("Attempting login function now....")
             OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
         }
         
@@ -39,7 +42,7 @@ class LoginViewController: UIViewController {
         }
     
     func handleLoginResponse(success: Bool, error: Error?) {
-        print("\(success)")
+        print("trying handleLoginResponse....")
         if success {
             print("success in handleLoginResponse")
             OTMClient.createSessionId(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: handleSessionResponse(success:error:))
@@ -50,35 +53,20 @@ class LoginViewController: UIViewController {
     }
     
     func handleSessionResponse(success: Bool, error: Error?) {
+        print("trying handleSessionResponse....")
         setLoggingIn(false)
+        print("setLoggingIn is False in handleSessionResponse. Checking success: Bool now")
         if success {
+            print("trying handleSessionResponse SUCCESS")
             performSegue(withIdentifier: "completeLogin", sender: nil)
+            print("handleSessionResponse SUCCESS!")
         } else {
             print("error in handleLoginResponse")
             showLoginFailure(message: error?.localizedDescription ?? "")
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-        
-        func handleRequestTokenResponse(success: Bool, error: Error?) {
-            print("trying....")
-            print("Success: \(success)")
-            if success {
-                print("\(emailTextField.text)")
-                print("\(passwordTextField.text)")
-                OTMClient.login(username: emailTextField.text ?? "", password: passwordTextField.text ?? "", completion: handleLoginResponse(success:error:))
-            } else {
-                print("error in handleRequestTokenResponse")
-                showLoginFailure(message: error?.localizedDescription ?? "")
-            }
-        }
+
         
 
         
