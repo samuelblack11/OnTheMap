@@ -36,8 +36,13 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapToolBar: UIToolbar!
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     
+    
+    //struct PostAttributes {
     var userLoc: String!
     var userURL: String!
+    var latitude: Float!
+    var longitude: Float!
+    //}
         
     @IBAction func clickLogout(_ sender: Any) {
         OTMClient.logout(completion: handleLogoutResponse(success:error:))
@@ -71,15 +76,14 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             let firstName = pin.firstName
-            let lastName = pin.lastName
+            //let lastName = pin.lastName
             let mediaURL = pin.mediaURL
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = "\(firstName) * \(lastName)"
+            annotation.title = firstName ?? "Sam"
             annotation.subtitle = mediaURL
             // Finally we place the annotation in an array of annotations.
-
             annotations.append(annotation)
         }
         // When the array is complete, we add the annotations to the map.
@@ -87,11 +91,41 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.addAnnotations(annotations)
     }
     
+    
     override func viewDidLoad() {
         print("Calling viewDidLoad")
         super.viewDidLoad()
-        OTMClient.getPin(completion: handlePinsResponse(pins:error:))
+        // Check if pins have been added
+        if PostPinViewController().newPinStatus(PostPinViewController.newPinAdded) {
+            searchForNewPins()
         }
+        
+        OTMClient.getPin(completion: handlePinsResponse(pins:error:))
+        //PostPinViewController().addPin = false
+        }
+    
+    func searchForNewPins() {
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = userLoc
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { (response, error) in
+            
+            guard let response = response else {
+                let alertVC = UIAlertController(title: "Location not found.", message: "Please input another location.", preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in self.navigationController?.popViewController(animated: true)}))
+                self.present(alertVC, animated: true, completion: nil)
+                return
+            }
+            
+            let pin = MKPointAnnotation()
+            pin.coordinate = response.mapItems[0].placemark.coordinate
+            pin.title = response.mapItems[0].name
+            self.mapView.addAnnotation(pin)
+            self.mapView.setCenter(pin.coordinate, animated: true)
+            let region = MKCoordinateRegion(center: pin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self.mapView.setRegion(region, animated: true)
+    }
+    }
     
     // MARK: - MKMapViewDelegate
 
