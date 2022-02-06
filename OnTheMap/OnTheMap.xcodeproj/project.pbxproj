@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26509C4927B0010000B3552E /* TableNavigation Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26509C4827B000FF00B3552E /* TableNavigation Controller.swift */; };
 		26707D7B279CC0610006CFD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707D7A279CC0610006CFD9 /* AppDelegate.swift */; };
 		26707D7D279CC0610006CFD9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707D7C279CC0610006CFD9 /* SceneDelegate.swift */; };
 		26707D7F279CC0610006CFD9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707D7E279CC0610006CFD9 /* LoginViewController.swift */; };
@@ -23,11 +24,16 @@
 		26707DA5279CC56F0006CFD9 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707DA4279CC56F0006CFD9 /* SessionResponse.swift */; };
 		26707DA7279CC5960006CFD9 /* OTMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707DA6279CC5960006CFD9 /* OTMResponse.swift */; };
 		26707DA9279CC8CE0006CFD9 /* RequestTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707DA8279CC8CE0006CFD9 /* RequestTokenResponse.swift */; };
+		2689909D279F778E00844D1D /* PinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2689909C279F778E00844D1D /* PinResponse.swift */; };
 		26A0C034279E110C00F03A97 /* OnTheMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A0C033279E110B00F03A97 /* OnTheMapViewController.swift */; };
 		26B95867279D88980019D049 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B95866279D88980019D049 /* GradientView.swift */; };
+		26D9947127AF061900A5FE73 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D9947027AF061900A5FE73 /* StudentInformation.swift */; };
+		26D9947327AF072800A5FE73 /* PinTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D9947227AF072800A5FE73 /* PinTableViewController.swift */; };
+		26D9947527AF138400A5FE73 /* LogoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D9947427AF138400A5FE73 /* LogoutResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26509C4827B000FF00B3552E /* TableNavigation Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableNavigation Controller.swift"; sourceTree = "<group>"; };
 		26707D77279CC0610006CFD9 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26707D7A279CC0610006CFD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26707D7C279CC0610006CFD9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,8 +52,12 @@
 		26707DA4279CC56F0006CFD9 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
 		26707DA6279CC5960006CFD9 /* OTMResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTMResponse.swift; sourceTree = "<group>"; };
 		26707DA8279CC8CE0006CFD9 /* RequestTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTokenResponse.swift; sourceTree = "<group>"; };
+		2689909C279F778E00844D1D /* PinResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinResponse.swift; sourceTree = "<group>"; };
 		26A0C033279E110B00F03A97 /* OnTheMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapViewController.swift; sourceTree = "<group>"; };
 		26B95866279D88980019D049 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		26D9947027AF061900A5FE73 /* StudentInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
+		26D9947227AF072800A5FE73 /* PinTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTableViewController.swift; sourceTree = "<group>"; };
+		26D9947427AF138400A5FE73 /* LogoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +126,8 @@
 			children = (
 				26707D7E279CC0610006CFD9 /* LoginViewController.swift */,
 				26A0C033279E110B00F03A97 /* OnTheMapViewController.swift */,
+				26509C4827B000FF00B3552E /* TableNavigation Controller.swift */,
+				26D9947227AF072800A5FE73 /* PinTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -155,6 +167,9 @@
 				26707DA4279CC56F0006CFD9 /* SessionResponse.swift */,
 				26707DA6279CC5960006CFD9 /* OTMResponse.swift */,
 				26707DA8279CC8CE0006CFD9 /* RequestTokenResponse.swift */,
+				2689909C279F778E00844D1D /* PinResponse.swift */,
+				26D9947027AF061900A5FE73 /* StudentInformation.swift */,
+				26D9947427AF138400A5FE73 /* LogoutResponse.swift */,
 			);
 			name = "OTM Responses";
 			sourceTree = "<group>";
@@ -230,17 +245,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D9947527AF138400A5FE73 /* LogoutResponse.swift in Sources */,
 				26707DA5279CC56F0006CFD9 /* SessionResponse.swift in Sources */,
 				26707DA3279CC5100006CFD9 /* PostSession.swift in Sources */,
+				2689909D279F778E00844D1D /* PinResponse.swift in Sources */,
 				26707D7F279CC0610006CFD9 /* LoginViewController.swift in Sources */,
 				26707DA1279CC5080006CFD9 /* LogoutRequest.swift in Sources */,
 				26B95867279D88980019D049 /* GradientView.swift in Sources */,
+				26D9947127AF061900A5FE73 /* StudentInformation.swift in Sources */,
 				26707D9A279CC36A0006CFD9 /* OTMClient.swift in Sources */,
 				26707D93279CC17C0006CFD9 /* LoginButton.swift in Sources */,
+				26509C4927B0010000B3552E /* TableNavigation Controller.swift in Sources */,
 				26707D7B279CC0610006CFD9 /* AppDelegate.swift in Sources */,
 				26707DA7279CC5960006CFD9 /* OTMResponse.swift in Sources */,
 				26707D7D279CC0610006CFD9 /* SceneDelegate.swift in Sources */,
 				26707D95279CC18A0006CFD9 /* LoginTextField.swift in Sources */,
+				26D9947327AF072800A5FE73 /* PinTableViewController.swift in Sources */,
 				26707DA9279CC8CE0006CFD9 /* RequestTokenResponse.swift in Sources */,
 				26A0C034279E110C00F03A97 /* OnTheMapViewController.swift in Sources */,
 				26707D9D279CC37D0006CFD9 /* OTMTypes.swift in Sources */,

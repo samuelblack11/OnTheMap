@@ -23,7 +23,7 @@
                                 <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ms3-9e-eYp">
-                                <rect key="frame" x="16" y="338.5" width="382" height="229"/>
+                                <rect key="frame" x="16" y="377" width="382" height="152.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login with Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGJ-cV-GPm">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -57,32 +57,10 @@
                                             <action selector="loginTapped:" destination="K2s-ze-huY" eventType="touchUpInside" id="N4r-Mb-XFE"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boH-CD-HMG">
-                                        <rect key="frame" x="0.0" y="164.5" width="382" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNK-gy-lwD" customClass="LoginButton" customModule="OnTheMap">
-                                        <rect key="frame" x="0.0" y="197" width="382" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="dzy-oI-qvt"/>
-                                        </constraints>
-                                        <state key="normal" title="Login via Website"/>
-                                        <connections>
-                                            <action selector="loginViaWebsiteTapped" destination="K2s-ze-huY" eventType="touchUpInside" id="FG1-KN-Oef"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This product uses the TMDb API but is not endorsed or certified by TMDb." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2N-cO-5rp" userLabel="This product uses the _____ API but is not endorsed or certified by _______.">
-                                <rect key="frame" x="16" y="801" width="382" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Bhk-Az-cTO">
-                                <rect key="frame" x="197" y="575" width="20" height="20"/>
+                                <rect key="frame" x="197" y="537" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Lck-kN-VyG"/>
@@ -92,20 +70,16 @@
                             <constraint firstItem="Bhk-Az-cTO" firstAttribute="centerX" secondItem="Lck-kN-VyG" secondAttribute="centerX" id="GQo-MU-3j7"/>
                             <constraint firstItem="I4n-SW-L78" firstAttribute="leading" secondItem="Lck-kN-VyG" secondAttribute="leading" constant="16" id="Nog-wf-G55"/>
                             <constraint firstItem="Bhk-Az-cTO" firstAttribute="top" secondItem="ms3-9e-eYp" secondAttribute="bottom" constant="7.5" id="Q6I-BE-gjy"/>
-                            <constraint firstItem="P2N-cO-5rp" firstAttribute="leading" secondItem="Lck-kN-VyG" secondAttribute="leading" constant="16" id="S1S-2q-dra"/>
                             <constraint firstItem="I4n-SW-L78" firstAttribute="top" secondItem="Lck-kN-VyG" secondAttribute="top" constant="136" id="UUx-bi-CAE"/>
-                            <constraint firstItem="Lck-kN-VyG" firstAttribute="trailing" secondItem="P2N-cO-5rp" secondAttribute="trailing" constant="16" id="VKE-da-mMq"/>
                             <constraint firstItem="Lck-kN-VyG" firstAttribute="trailing" secondItem="I4n-SW-L78" secondAttribute="trailing" constant="16" id="Wfc-up-Qi9"/>
                             <constraint firstItem="ms3-9e-eYp" firstAttribute="centerY" secondItem="Lck-kN-VyG" secondAttribute="centerY" id="iIj-iM-p6R"/>
                             <constraint firstItem="Lck-kN-VyG" firstAttribute="trailing" secondItem="ms3-9e-eYp" secondAttribute="trailing" constant="16" id="uFk-Gi-WgE"/>
-                            <constraint firstItem="Lck-kN-VyG" firstAttribute="bottom" secondItem="P2N-cO-5rp" secondAttribute="bottom" constant="20" id="zCN-FD-Lbb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="Bhk-Az-cTO" id="loL-Pw-Nae"/>
                         <outlet property="emailTextField" destination="kX1-uN-Pbo" id="otx-zV-fom"/>
                         <outlet property="loginButton" destination="Sjc-lI-qVl" id="h1g-ZH-WuF"/>
-                        <outlet property="loginViaWebsiteButton" destination="tNK-gy-lwD" id="Ton-u3-1I1"/>
                         <outlet property="passwordTextField" destination="UwQ-Nt-igA" id="82g-ye-LBU"/>
                         <segue destination="G18-YZ-HaT" kind="show" identifier="completeLogin" destinationCreationSelector="loginToMap:" id="2jN-EJ-d86"/>
                     </connections>
@@ -117,28 +91,215 @@
         <!--OnTheMapViewController-->
         <scene sceneID="9Jp-JN-Nu9">
             <objects>
-                <viewController restorationIdentifier="OnTheMapViewController" storyboardIdentifier="OnTheMapViewController" title="OnTheMapViewController" id="G18-YZ-HaT" userLabel="OnTheMapViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="OnTheMapViewController" storyboardIdentifier="OnTheMapViewController" title="OnTheMapViewController" id="G18-YZ-HaT" userLabel="OnTheMapViewController" customClass="OnTheMapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kJm-g5-pPy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tray.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7Ay-qS-W3N">
-                                <rect key="frame" x="87" y="371" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yBV-63-NPr">
+                                <rect key="frame" x="0.0" y="44" width="414" height="764"/>
+                                <connections>
+                                    <outlet property="delegate" destination="G18-YZ-HaT" id="6bN-jg-Vb9"/>
+                                </connections>
+                            </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfs-uJ-iza">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem title="Post (Add) Pin" image="plus" catalog="system" id="diw-Sm-hLn" userLabel="Add Pin">
+                                        <connections>
+                                            <action selector="mapToPostWithSender:" destination="G18-YZ-HaT" id="wgc-ET-6td"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="54F-OX-UAr"/>
+                                    <barButtonItem title="Table View" image="table" catalog="system" id="IBz-Q1-NtC" userLabel="Table View">
+                                        <connections>
+                                            <action selector="mapToTableWithSender:" destination="G18-YZ-HaT" id="vQq-uv-ovp"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="N1V-Lu-hhg"/>
+                                    <barButtonItem title="Logout" id="Hra-QE-RVK" userLabel="Logout">
+                                        <connections>
+                                            <action selector="clickLogout:" destination="G18-YZ-HaT" id="gQi-Kl-aP8"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LY4-Qo-y88"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yBV-63-NPr" firstAttribute="top" secondItem="bfs-uJ-iza" secondAttribute="bottom" id="JWo-9e-sb8"/>
+                            <constraint firstItem="bfs-uJ-iza" firstAttribute="trailing" secondItem="LY4-Qo-y88" secondAttribute="trailing" id="TIA-GD-m5B"/>
+                            <constraint firstItem="yBV-63-NPr" firstAttribute="bottom" secondItem="LY4-Qo-y88" secondAttribute="bottom" id="Xjv-0J-kFs"/>
+                            <constraint firstItem="bfs-uJ-iza" firstAttribute="top" secondItem="LY4-Qo-y88" secondAttribute="top" id="gHX-rw-Ggp"/>
+                            <constraint firstItem="LY4-Qo-y88" firstAttribute="trailing" secondItem="yBV-63-NPr" secondAttribute="trailing" id="vqz-Zo-ZQ2"/>
+                            <constraint firstItem="bfs-uJ-iza" firstAttribute="leading" secondItem="LY4-Qo-y88" secondAttribute="leading" id="xfD-xb-7DY"/>
+                            <constraint firstItem="yBV-63-NPr" firstAttribute="leading" secondItem="LY4-Qo-y88" secondAttribute="leading" id="zlv-13-6Vn"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Mp4-gm-W83"/>
+                    <connections>
+                        <outlet property="addPinButton" destination="diw-Sm-hLn" id="ppA-16-jWF"/>
+                        <outlet property="logoutButton" destination="Hra-QE-RVK" id="kur-RQ-VDL"/>
+                        <outlet property="mapToolBar" destination="bfs-uJ-iza" id="Oc1-un-All"/>
+                        <outlet property="mapView" destination="yBV-63-NPr" id="N2W-FE-va0"/>
+                        <outlet property="tableViewButton" destination="IBz-Q1-NtC" id="z9I-0Y-ZwJ"/>
+                        <segue destination="cGt-7l-Tgc" kind="show" identifier="mapToNavTable" id="jOW-36-lk6"/>
+                        <segue destination="vca-VY-aM6" kind="show" identifier="mapToNavPost" id="CfW-PC-UMw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNd-kU-sH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="qsp-vw-qod" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-616" y="-339"/>
+            <point key="canvasLocation" x="-661" y="-390"/>
+        </scene>
+        <!--PinTableViewController-->
+        <scene sceneID="XFR-vX-LkZ">
+            <objects>
+                <tableViewController id="fVN-nu-w1l" userLabel="PinTableViewController" customClass="PinTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="0si-Mn-VOg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pbc-vm-E7d" userLabel="Table Tool Bar">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem title="Add Pin" id="exr-Re-AYl" userLabel="Add Pin"/>
+                                <barButtonItem width="95" style="plain" systemItem="fixedSpace" id="07Y-pH-SqW"/>
+                                <barButtonItem title="Map" image="mappin" catalog="system" id="ayh-ut-kVk" userLabel="Map"/>
+                                <barButtonItem width="116" style="plain" systemItem="fixedSpace" id="hPA-LM-n6y"/>
+                                <barButtonItem title="Logout" id="n77-q4-OHK" userLabel="Logout">
+                                    <connections>
+                                        <action selector="clickLogout:" destination="fVN-nu-w1l" id="d9v-qf-3oQ"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
+                        <imageView key="tableFooterView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="externaldrive.fill.badge.checkmark" catalog="system" id="i5S-Df-nPH">
+                            <rect key="frame" x="0.0" y="154.5" width="414" height="278"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PinTableViewCell" id="6eW-QE-Chg" customClass="PinTableViewCell" customModule="OnTheMap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6eW-QE-Chg" id="a4P-8H-1cH">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0g-j9-I5L">
+                                            <rect key="frame" x="20" y="11" width="43" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="name" label="name"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mediaURL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8St-27-mVn" userLabel="mediaURL">
+                                            <rect key="frame" x="185" y="10.5" width="79" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="mediaURL" label="mediaURL"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="PinTableViewCell" label="PinTableViewCell">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                                <connections>
+                                    <outlet property="mediaURL" destination="8St-27-mVn" id="uo9-lQ-e5Y"/>
+                                    <outlet property="name" destination="I0g-j9-I5L" id="TFX-NK-mnT"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fVN-nu-w1l" id="eb9-9s-QKF"/>
+                            <outlet property="delegate" destination="fVN-nu-w1l" id="ELX-85-JlQ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="gkk-jM-0za"/>
+                    <connections>
+                        <outlet property="tableView" destination="0si-Mn-VOg" id="Exf-as-cUK"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vZq-dj-151" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="FZj-Ci-D0V">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem title="Post (Add) Pin" image="plus" catalog="system" id="u3L-rU-nD4" userLabel="Add Pin"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Iib-NN-6rj"/>
+                        <barButtonItem title="Table View" image="table" catalog="system" id="UHJ-KX-oKu" userLabel="Table View"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="G7J-ab-Der"/>
+                        <barButtonItem title="Logout" id="jhh-Qo-A3s" userLabel="Logout">
+                            <connections>
+                                <action selector="logoutButton:" destination="qsp-vw-qod" id="RiR-Hf-MD9"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+            </objects>
+            <point key="canvasLocation" x="1228.985507246377" y="51.5625"/>
+        </scene>
+        <!--PostPinViewController-->
+        <scene sceneID="9BT-Ln-zOy">
+            <objects>
+                <viewController id="g6y-fI-W1o" userLabel="PostPinViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5pN-Th-Fcw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="S84-5o-IsC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="VEk-iZ-tx7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qMf-mC-fAp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1229" y="-670"/>
+        </scene>
+        <!--TableNavigationController-->
+        <scene sceneID="UCk-El-6vk">
+            <objects>
+                <navigationController title="navTableToTable" id="cGt-7l-Tgc" userLabel="TableNavigationController" customClass="TableNavigationController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="8QY-tc-zga"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gji-Ek-S5r">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fVN-nu-w1l" kind="show" identifier="navTableToTable" id="B8c-pN-73k"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EQc-AW-RsY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="303" y="52"/>
+        </scene>
+        <!--PostNavigationController-->
+        <scene sceneID="ODJ-VF-eHn">
+            <objects>
+                <navigationController title="navTableToTable" id="vca-VY-aM6" userLabel="PostNavigationController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="SvR-V4-tSe"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lze-MV-zdx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="g6y-fI-W1o" kind="show" identifier="navPostToPost" id="MGE-H1-2nB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fnb-17-ioB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="303" y="-683"/>
         </scene>
     </scenes>
     <resources>
-        <image name="tray.fill" catalog="system" width="128" height="88"/>
+        <image name="externaldrive.fill.badge.checkmark" catalog="system" width="128" height="91"/>
+        <image name="mappin" catalog="system" width="105" height="128"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="table" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

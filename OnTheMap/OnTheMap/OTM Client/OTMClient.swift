@@ -16,30 +16,34 @@ class OTMClient {
     }
     
     enum Endpoints {
-        static let base = "https://onthemap-api.udacity.com/v1/session"
+        static let base = "https://onthemap-api.udacity.com/v1/"
         
         case login
         case createSessionId
         case logout
         case webAuth
+        case studentLoc
         
         var stringValue: String {
             switch self {
 
             case .login:
-                return Endpoints.base
+                return Endpoints.base + "session"
             case .createSessionId:
-                return Endpoints.base
+                return Endpoints.base + "session"
             case .logout:
-                return Endpoints.base
+                return Endpoints.base + "session"
             case .webAuth:
-                return Endpoints.base
+                return Endpoints.base + "session"
+            case .studentLoc:
+                return Endpoints.base + "StudentLocation"
             }
-        }
+            }
         var url: URL {
             return URL(string: stringValue)!
         }
     }
+    
     
     class func createSessionId(username: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
         print("func createSessionId called")
@@ -63,10 +67,7 @@ class OTMClient {
         let body = LoginRequest(username: username, password: password)
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
         request.httpBody = "{\"udacity\": {\"username\": \"\(body.username)\", \"password\": \"\(body.password)\"}}".data(using: .utf8)
-        //request.httpBody = "{\"udacity\": {\"username\": \"\(username)", \"\(RequestType.password)": \"********\"}}".data(using: .utf8)
-        
         request.httpMethod = "POST"
-        request.httpBody = try! JSONEncoder().encode(body)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         print("taskForPOSTRequest checkpoint")
@@ -149,29 +150,142 @@ class OTMClient {
     task.resume()
     }
 
-    //https://knowledge.udacity.com/questions/764046
-    class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
-        print("\(url)")
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    
+    
+    class func getReq<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
+            
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let responseObject = try decoder.decode(ResponseType.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(responseObject, nil)
+                    }
+                } catch {
+                    do {
+                        let errorResponse = try decoder.decode(OTMResponse.self, from: data) as Error
+                        DispatchQueue.main.async {
+                            completion(nil, errorResponse)
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            completion(nil, error)
+                        }
+                    }
+                }
+            }
+        task.resume()
+        return task
+    }
+    
+    
+    class func postReq<RequestType: Encodable, ResponseType: Decodable>(url: URL, trim: Bool, body: RequestType, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try! JSONEncoder().encode(body)
+
+            //request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
+            let session = URLSession.shared
+            let task = session.dataTask(with: request) { data, response, error in
+                guard let data = data else {
+                    DispatchQueue.main.async {completion(nil, error)}
+                        return
+                    }
+                
+                var newData = data
+                if trim {
+                    let range = 5..<data.count
+                    newData = newData.subdata(in: range) /* subset response data! */
+                }
+                let decoder = JSONDecoder()
+                
+                do {
+                    let responseObject = try decoder.decode(ResponseType.self, from: newData)
+                    DispatchQueue.main.async {
+                        completion((responseObject ), nil)
+                    }
+                } catch {
+                    completion(nil, error)
+                }
+            }
+        task.resume()
+        //return task
+    }
+    
+    
+    class func taskForDELETERequest<ResponseType: Decodable>(url: URL, response: ResponseType.Type, completion: @escaping (Bool, Error?) -> Void) -> URLSessionTask {
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 DispatchQueue.main.async {
-                    completion(nil, error)
+                    completion(false, error)
                 }
                 return
             }
+            let range = 5..<data.count
+            let newData = data.subdata(in: range)
             let decoder = JSONDecoder()
-            print(("Response Type: \(ResponseType.self)"))
             do {
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                _ = try decoder.decode(ResponseType.self, from: newData)
                 DispatchQueue.main.async {
-                    completion(responseObject, nil)
+                    completion(true, nil)
                 }
             } catch {
+                DispatchQueue.main.async {
+                    completion(false, error)
+                }
             }
         }
         task.resume()
         return task
     }
-}
+        
+    class func postPin(objectId: String, uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, createdAt: String, updatedAt: String, completion: @escaping ([StudentInformation], Error?) -> Void) {
+        
+        let body = StudentInformation(objectId: objectId, uniqueKey: uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude, longitude: longitude, createdAt: createdAt, updatedAt: updatedAt)
+        
+        let _ = postReq(url: Endpoints.studentLoc.url, trim: false,
+                        body: body,
+                            responseType: PinResponse.self) { (response, error) in
+            if let response = response {
+                completion(response.results, nil)
+            } else {
+                completion([], error)
+            }
+        }
+    }
+    
+    class func getPin(completion: @escaping ([StudentInformation], Error?) -> Void) {
+        let _ = getReq(url: Endpoints.studentLoc.url, responseType: PinResponse.self) { (response, error) in
+            if let response = response {
+                completion(response.results, nil)
+            } else {
+                completion([], error)
+            }
+        }
+    }
+    
+    class func logout(completion: @escaping (Bool, Error?) -> Void) {
+        let _ = taskForDELETERequest(url: Endpoints.logout.url, response: LogoutResponse.self) { (response, error) in
+            completion(response, error)
+            
+        }
+        //let loginVC = LoginViewController()
+        //loginVC.viewWillAppear(true)
+
+        //emailTextField.text = ""
+        //LoginViewController.passwordTextField.text = ""
+    }
+        
+    }
     
 

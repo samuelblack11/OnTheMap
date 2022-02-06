@@ -9,15 +9,14 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-  //  override func viewDidLoad() {
-   //     super.viewDidLoad()
-   //     // Do any additional setup after loading the view.
+    //override func viewDidLoad() {
+     //   super.viewDidLoad()
+        // Do any additional setup after loading the view.
     //}
             
         @IBOutlet weak var emailTextField: UITextField!
         @IBOutlet weak var passwordTextField: UITextField!
         @IBOutlet weak var loginButton: UIButton!
-        @IBOutlet weak var loginViaWebsiteButton: UIButton!
         @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
         
     
@@ -36,10 +35,6 @@ class LoginViewController: UIViewController {
             OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
         }
         
-        @IBAction func loginViaWebsiteTapped() {
-            setLoggingIn(true)
-            OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
-        }
     
     func handleLoginResponse(success: Bool, error: Error?) {
         print("trying handleLoginResponse....")
@@ -55,9 +50,10 @@ class LoginViewController: UIViewController {
     func handleSessionResponse(success: Bool, error: Error?) {
         print("trying handleSessionResponse....")
         setLoggingIn(false)
-        print("setLoggingIn is False in handleSessionResponse. Checking success: Bool now")
         if success {
-            print("trying handleSessionResponse SUCCESS")
+            // Clear these text fields for when user logs out
+            emailTextField.text = ""
+            passwordTextField.text = ""
             performSegue(withIdentifier: "completeLogin", sender: nil)
             print("handleSessionResponse SUCCESS!")
         } else {
@@ -79,7 +75,6 @@ class LoginViewController: UIViewController {
             emailTextField.isEnabled = !loggingIn
             passwordTextField.isEnabled = !loggingIn
             loginButton.isEnabled = !loggingIn
-            loginViaWebsiteButton.isEnabled = !loggingIn
         }
         
         func showLoginFailure(message: String) {
