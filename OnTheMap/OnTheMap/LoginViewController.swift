@@ -35,7 +35,6 @@ class LoginViewController: UIViewController {
             OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
         }
         
-    
     func handleLoginResponse(success: Bool, error: Error?) {
         print("trying handleLoginResponse....")
         if success {
@@ -54,18 +53,14 @@ class LoginViewController: UIViewController {
             // Clear these text fields for when user logs out
             emailTextField.text = ""
             passwordTextField.text = ""
-            performSegue(withIdentifier: "completeLogin", sender: nil)
+            performSegue(withIdentifier: "completeLogin", sender: self)
             print("handleSessionResponse SUCCESS!")
         } else {
             print("error in handleLoginResponse")
             showLoginFailure(message: error?.localizedDescription ?? "")
         }
     }
-    
-
-        
-
-        
+     
         func setLoggingIn(_ loggingIn: Bool) {
             if loggingIn {
                 activityIndicator.startAnimating()
@@ -82,11 +77,9 @@ class LoginViewController: UIViewController {
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             show(alertVC, sender: nil)
         }
-
     }
 
     // Helper function inserted by Swift 4.2 migrator.
     fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
         return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
     }
-

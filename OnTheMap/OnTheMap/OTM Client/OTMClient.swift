@@ -36,7 +36,7 @@ class OTMClient {
             case .webAuth:
                 return Endpoints.base + "session"
             case .studentLoc:
-                return Endpoints.base + "StudentLocation"
+                return Endpoints.base + "StudentLocation?limit=100&order=-updatedAt"
             }
             }
         var url: URL {
@@ -150,8 +150,6 @@ class OTMClient {
     task.resume()
     }
 
-    
-    
     class func getReq<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
             
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -188,18 +186,14 @@ class OTMClient {
     class func postReq<RequestType: Encodable, ResponseType: Decodable>(url: URL, trim: Bool, body: RequestType, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try! JSONEncoder().encode(body)
-
-            //request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
             let session = URLSession.shared
             let task = session.dataTask(with: request) { data, response, error in
                 guard let data = data else {
                     DispatchQueue.main.async {completion(nil, error)}
                         return
                     }
-                
                 var newData = data
                 if trim {
                     let range = 5..<data.count
@@ -219,7 +213,6 @@ class OTMClient {
         task.resume()
         //return task
     }
-    
     
     class func taskForDELETERequest<ResponseType: Decodable>(url: URL, response: ResponseType.Type, completion: @escaping (Bool, Error?) -> Void) -> URLSessionTask {
         var request = URLRequest(url: url)
@@ -277,15 +270,8 @@ class OTMClient {
     class func logout(completion: @escaping (Bool, Error?) -> Void) {
         let _ = taskForDELETERequest(url: Endpoints.logout.url, response: LogoutResponse.self) { (response, error) in
             completion(response, error)
-            
+            }
         }
-        //let loginVC = LoginViewController()
-        //loginVC.viewWillAppear(true)
-
-        //emailTextField.text = ""
-        //LoginViewController.passwordTextField.text = ""
-    }
-        
     }
     
 

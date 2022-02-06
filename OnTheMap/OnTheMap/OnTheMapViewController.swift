@@ -34,42 +34,11 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
     // is set up as the map view's delegate.
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapToolBar: UIToolbar!
-    @IBOutlet weak var addPinButton: UIBarButtonItem!
-    @IBOutlet weak var tableViewButton: UIBarButtonItem!
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     
-    
-    //OTMViewController --> Navigation Table Controller
-    //performSegue(withIdentifier: "mapToNavTable", sender: nil)
-    //print("OTM to NavTable Success")
-    
-    // Navigation Table Controller --> PinTableViewController
-   // let viewController = PinTableViewController(nibName: "PinTableViewController", bundle: nil)
-    //self.navigationController?.pushViewController(viewController, animated: true)
-    //print("Nav Table to PinTable Success")
-    
-    
-    
-    
-    
-    
-    
-    // https://www.hackingwithswift.com/example-code/system/how-to-pass-data-between-two-view-controllers
-    @IBAction func mapToTable(sender: AnyObject) {
-        performSegue(withIdentifier: "mapToNavTable", sender: nil)
-        print("Start")
-        let viewControllerB = PinTableViewController()
-        viewControllerB.selectedName = "PinTableViewController"
+    var userLoc: String!
+    var userURL: String!
         
-        let tableNavController = TableNavigationController()
-        tableNavController.pushViewController(viewControllerB, animated: true)
-        print("Done")
-    }
-    
-    @IBAction func mapToPost(sender: AnyObject) {
-        performSegue(withIdentifier: "mapToNavPost", sender: nil)
-    }
-    
     @IBAction func clickLogout(_ sender: Any) {
         OTMClient.logout(completion: handleLogoutResponse(success:error:))
         self.dismiss(animated: true, completion: nil)
@@ -80,9 +49,8 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
             self.dismiss(animated: true, completion: nil)
         } else {
                 print("Logout Failed")
+        }
     }
-    }
-    
     
     // The "PinData" array is an array of dictionary objects that are similar to the JSON
     // data that you can download from parse.
@@ -166,7 +134,7 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
             appDelegate.pins = pins
             showPins(pins)
         } else {
-            print("handlePinsResponse Error: \(error)")
+            print(error ?? "Error in handlePinsResponse")
         }
         }
     }

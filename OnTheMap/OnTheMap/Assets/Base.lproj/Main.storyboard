@@ -81,12 +81,12 @@
                         <outlet property="emailTextField" destination="kX1-uN-Pbo" id="otx-zV-fom"/>
                         <outlet property="loginButton" destination="Sjc-lI-qVl" id="h1g-ZH-WuF"/>
                         <outlet property="passwordTextField" destination="UwQ-Nt-igA" id="82g-ye-LBU"/>
-                        <segue destination="G18-YZ-HaT" kind="show" identifier="completeLogin" destinationCreationSelector="loginToMap:" id="2jN-EJ-d86"/>
+                        <segue destination="WP0-Kx-Eun" kind="show" identifier="completeLogin" id="sAa-Y8-g63"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e36-Tf-Hyg" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1546.4000000000001" y="-338.68065967016497"/>
+            <point key="canvasLocation" x="-2110" y="-151"/>
         </scene>
         <!--OnTheMapViewController-->
         <scene sceneID="9Jp-JN-Nu9">
@@ -97,7 +97,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yBV-63-NPr">
-                                <rect key="frame" x="0.0" y="44" width="414" height="764"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="715"/>
                                 <connections>
                                     <outlet property="delegate" destination="G18-YZ-HaT" id="6bN-jg-Vb9"/>
                                 </connections>
@@ -105,18 +105,6 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfs-uJ-iza">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Post (Add) Pin" image="plus" catalog="system" id="diw-Sm-hLn" userLabel="Add Pin">
-                                        <connections>
-                                            <action selector="mapToPostWithSender:" destination="G18-YZ-HaT" id="wgc-ET-6td"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="54F-OX-UAr"/>
-                                    <barButtonItem title="Table View" image="table" catalog="system" id="IBz-Q1-NtC" userLabel="Table View">
-                                        <connections>
-                                            <action selector="mapToTableWithSender:" destination="G18-YZ-HaT" id="vQq-uv-ovp"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="N1V-Lu-hhg"/>
                                     <barButtonItem title="Logout" id="Hra-QE-RVK" userLabel="Logout">
                                         <connections>
                                             <action selector="clickLogout:" destination="G18-YZ-HaT" id="gQi-Kl-aP8"/>
@@ -137,21 +125,37 @@
                             <constraint firstItem="yBV-63-NPr" firstAttribute="leading" secondItem="LY4-Qo-y88" secondAttribute="leading" id="zlv-13-6Vn"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="mappin" catalog="system" id="6C9-Do-Xle" userLabel="map"/>
                     <navigationItem key="navigationItem" id="Mp4-gm-W83"/>
                     <connections>
-                        <outlet property="addPinButton" destination="diw-Sm-hLn" id="ppA-16-jWF"/>
                         <outlet property="logoutButton" destination="Hra-QE-RVK" id="kur-RQ-VDL"/>
                         <outlet property="mapToolBar" destination="bfs-uJ-iza" id="Oc1-un-All"/>
                         <outlet property="mapView" destination="yBV-63-NPr" id="N2W-FE-va0"/>
-                        <outlet property="tableViewButton" destination="IBz-Q1-NtC" id="z9I-0Y-ZwJ"/>
-                        <segue destination="cGt-7l-Tgc" kind="show" identifier="mapToNavTable" id="jOW-36-lk6"/>
-                        <segue destination="vca-VY-aM6" kind="show" identifier="mapToNavPost" id="CfW-PC-UMw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNd-kU-sH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="qsp-vw-qod" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-661" y="-390"/>
+            <point key="canvasLocation" x="729" y="-151"/>
+        </scene>
+        <!--Map Tab Bar Controller-->
+        <scene sceneID="H9G-TG-pTY">
+            <objects>
+                <tabBarController id="WP0-Kx-Eun" customClass="MapTabBarController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="kAk-su-UmG"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cnX-s8-I1M">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="G18-YZ-HaT" kind="relationship" relationship="viewControllers" id="HIq-Mf-931"/>
+                        <segue destination="g6y-fI-W1o" kind="relationship" relationship="viewControllers" id="X8M-At-vLU"/>
+                        <segue destination="fVN-nu-w1l" kind="relationship" relationship="viewControllers" id="K8m-ni-tFl"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cqm-8S-56X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-799" y="-151"/>
         </scene>
         <!--PinTableViewController-->
         <scene sceneID="XFR-vX-LkZ">
@@ -165,10 +169,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
-                                <barButtonItem title="Add Pin" id="exr-Re-AYl" userLabel="Add Pin"/>
-                                <barButtonItem width="95" style="plain" systemItem="fixedSpace" id="07Y-pH-SqW"/>
-                                <barButtonItem title="Map" image="mappin" catalog="system" id="ayh-ut-kVk" userLabel="Map"/>
-                                <barButtonItem width="116" style="plain" systemItem="fixedSpace" id="hPA-LM-n6y"/>
                                 <barButtonItem title="Logout" id="n77-q4-OHK" userLabel="Logout">
                                     <connections>
                                         <action selector="clickLogout:" destination="fVN-nu-w1l" id="d9v-qf-3oQ"/>
@@ -176,10 +176,6 @@
                                 </barButtonItem>
                             </items>
                         </toolbar>
-                        <imageView key="tableFooterView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="externaldrive.fill.badge.checkmark" catalog="system" id="i5S-Df-nPH">
-                            <rect key="frame" x="0.0" y="154.5" width="414" height="278"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PinTableViewCell" id="6eW-QE-Chg" customClass="PinTableViewCell" customModule="OnTheMap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88.5" width="414" height="43.5"/>
@@ -220,86 +216,110 @@
                             <outlet property="delegate" destination="fVN-nu-w1l" id="ELX-85-JlQ"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Table" image="tablecells" catalog="system" id="89q-Oe-T6B" userLabel="Table"/>
                     <navigationItem key="navigationItem" id="gkk-jM-0za"/>
                     <connections>
                         <outlet property="tableView" destination="0si-Mn-VOg" id="Exf-as-cUK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZq-dj-151" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="FZj-Ci-D0V">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <items>
-                        <barButtonItem title="Post (Add) Pin" image="plus" catalog="system" id="u3L-rU-nD4" userLabel="Add Pin"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Iib-NN-6rj"/>
-                        <barButtonItem title="Table View" image="table" catalog="system" id="UHJ-KX-oKu" userLabel="Table View"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="G7J-ab-Der"/>
-                        <barButtonItem title="Logout" id="jhh-Qo-A3s" userLabel="Logout">
-                            <connections>
-                                <action selector="logoutButton:" destination="qsp-vw-qod" id="RiR-Hf-MD9"/>
-                            </connections>
-                        </barButtonItem>
-                    </items>
-                </toolbar>
             </objects>
-            <point key="canvasLocation" x="1228.985507246377" y="51.5625"/>
+            <point key="canvasLocation" x="729" y="-816"/>
         </scene>
         <!--PostPinViewController-->
         <scene sceneID="9BT-Ln-zOy">
             <objects>
-                <viewController id="g6y-fI-W1o" userLabel="PostPinViewController" sceneMemberID="viewController">
+                <viewController id="g6y-fI-W1o" userLabel="PostPinViewController" customClass="PostPinViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5pN-Th-Fcw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTi-Gp-Qcs">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem title="Submit" id="ISs-cq-okK" userLabel="submit">
+                                        <connections>
+                                            <action selector="submitButtonPressed:" destination="g6y-fI-W1o" id="MSd-xO-g7e"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="263" style="plain" systemItem="fixedSpace" id="34o-YR-NBn"/>
+                                    <barButtonItem title="Dismiss" id="4G8-xG-m4C" userLabel="dismiss">
+                                        <connections>
+                                            <action selector="dismissButtonPressed:" destination="g6y-fI-W1o" id="ehB-ht-MVF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="1aB-h2-Wbj">
+                                <rect key="frame" x="163" y="67" width="88" height="20"/>
+                            </activityIndicatorView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cmS-SI-lSE" userLabel="addressBox">
+                                <rect key="frame" x="20" y="149" width="190" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="190" id="aby-tr-Flh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jdA-n0-4MK" userLabel="urlBox">
+                                <rect key="frame" x="20" y="244" width="190" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="190" id="pYL-ef-6Ob"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-Th-X1o" userLabel="enterAddress">
+                                <rect key="frame" x="20" y="120" width="67.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBn-m4-xG0" userLabel="enterMediaURL">
+                                <rect key="frame" x="20" y="215" width="37" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="S84-5o-IsC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qBn-m4-xG0" firstAttribute="leading" secondItem="S84-5o-IsC" secondAttribute="leading" constant="20" id="1lz-AD-xCd"/>
+                            <constraint firstItem="1aB-h2-Wbj" firstAttribute="top" secondItem="WTi-Gp-Qcs" secondAttribute="bottom" constant="23" id="OJI-BE-L4Y"/>
+                            <constraint firstItem="jdA-n0-4MK" firstAttribute="leading" secondItem="S84-5o-IsC" secondAttribute="leading" constant="20" id="P3I-87-a8L"/>
+                            <constraint firstItem="Il3-Th-X1o" firstAttribute="leading" secondItem="S84-5o-IsC" secondAttribute="leading" constant="20" id="R5T-5y-Ig8"/>
+                            <constraint firstItem="cmS-SI-lSE" firstAttribute="leading" secondItem="S84-5o-IsC" secondAttribute="leading" constant="20" id="U5p-6T-Of2"/>
+                            <constraint firstItem="1aB-h2-Wbj" firstAttribute="leading" secondItem="S84-5o-IsC" secondAttribute="leading" constant="163" id="aK2-gY-DMo"/>
+                            <constraint firstItem="Il3-Th-X1o" firstAttribute="top" secondItem="1aB-h2-Wbj" secondAttribute="bottom" constant="33" id="bvm-V6-sHa"/>
+                            <constraint firstItem="jdA-n0-4MK" firstAttribute="top" secondItem="qBn-m4-xG0" secondAttribute="bottom" constant="8" symbolic="YES" id="eYx-aX-HEe"/>
+                            <constraint firstItem="qBn-m4-xG0" firstAttribute="top" secondItem="cmS-SI-lSE" secondAttribute="bottom" constant="32" id="eqK-X9-ygF"/>
+                            <constraint firstItem="cmS-SI-lSE" firstAttribute="top" secondItem="Il3-Th-X1o" secondAttribute="bottom" constant="8" symbolic="YES" id="g1V-Qf-aeo"/>
+                            <constraint firstItem="1aB-h2-Wbj" firstAttribute="centerX" secondItem="WTi-Gp-Qcs" secondAttribute="centerX" id="nut-xC-Tin"/>
+                            <constraint firstItem="WTi-Gp-Qcs" firstAttribute="centerX" secondItem="5pN-Th-Fcw" secondAttribute="centerX" id="pVE-xl-gBD"/>
+                            <constraint firstItem="WTi-Gp-Qcs" firstAttribute="leading" secondItem="S84-5o-IsC" secondAttribute="leading" id="rmg-IM-LiM"/>
+                            <constraint firstItem="WTi-Gp-Qcs" firstAttribute="top" secondItem="S84-5o-IsC" secondAttribute="top" id="tOd-1P-8YS"/>
+                        </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Add Pin" image="plus" catalog="system" id="zfJ-N4-5Tx" userLabel="Add Pin"/>
                     <navigationItem key="navigationItem" id="VEk-iZ-tx7"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="1aB-h2-Wbj" id="hUH-9q-ODJ"/>
+                        <outlet property="addressBox" destination="cmS-SI-lSE" id="mWW-8T-ZNx"/>
+                        <outlet property="dismissButton" destination="4G8-xG-m4C" id="PXg-1z-eQS"/>
+                        <outlet property="submitButton" destination="ISs-cq-okK" id="fRx-Rz-tED"/>
+                        <outlet property="urlBox" destination="jdA-n0-4MK" id="JPV-jh-hht"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMf-mC-fAp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1229" y="-670"/>
-        </scene>
-        <!--TableNavigationController-->
-        <scene sceneID="UCk-El-6vk">
-            <objects>
-                <navigationController title="navTableToTable" id="cGt-7l-Tgc" userLabel="TableNavigationController" customClass="TableNavigationController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="8QY-tc-zga"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gji-Ek-S5r">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="fVN-nu-w1l" kind="show" identifier="navTableToTable" id="B8c-pN-73k"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EQc-AW-RsY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="303" y="52"/>
-        </scene>
-        <!--PostNavigationController-->
-        <scene sceneID="ODJ-VF-eHn">
-            <objects>
-                <navigationController title="navTableToTable" id="vca-VY-aM6" userLabel="PostNavigationController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="SvR-V4-tSe"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lze-MV-zdx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="g6y-fI-W1o" kind="show" identifier="navPostToPost" id="MGE-H1-2nB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fnb-17-ioB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="303" y="-683"/>
+            <point key="canvasLocation" x="728.98550724637687" y="612.72321428571422"/>
         </scene>
     </scenes>
     <resources>
-        <image name="externaldrive.fill.badge.checkmark" catalog="system" width="128" height="91"/>
         <image name="mappin" catalog="system" width="105" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="table" catalog="system" width="128" height="93"/>
+        <image name="tablecells" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
