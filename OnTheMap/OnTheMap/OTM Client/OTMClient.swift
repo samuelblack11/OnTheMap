@@ -48,15 +48,12 @@ class OTMClient {
     class func createSessionId(username: String, password: String, completion: @escaping (Bool, Error?) -> Void) {
         print("func createSessionId called")
         let body = LoginRequest(username: username, password: password)
-        print("----------------------")
         taskForPOSTRequest(username: body.username, password: body.password, url: Endpoints.createSessionId.url, responseType: SessionResponse.self, body: body) { response, error in
             if let response = response {
                 Auth.sessionId = response.session.sessionId
-                print("createSessionId completion true")
                 completion(true, nil)
             } else {
                 completion(false, nil)
-                print("createSessionId completion false")
             }
         }
     }
@@ -77,7 +74,6 @@ class OTMClient {
             let range = 5..<data!.count
             let newData = data?.subdata(in: range) /* subset response data! */
             print(String(data: newData!, encoding: .utf8)!)
-            print("taskForPOSTRequest checkpoint 2")
 
             guard let newData = newData else {
                 DispatchQueue.main.async {
@@ -90,35 +86,26 @@ class OTMClient {
             }
             let decoder = JSONDecoder()
             do {
-                print("taskForPOSTRequest checkpoint 3")
                 let responseObject = try decoder.decode(ResponseType.self, from: newData)
-                print("taskForPOSTRequest checkpoint 4")
                 DispatchQueue.main.async {
-                    
                     completion(responseObject, nil)
-                    print("taskForPOSTRequest checkpoint 5")
                 }
             }
             catch {
                 do {
-                    print("taskForPOSTRequest checkpoint 6")
                     let errorResponse = try decoder.decode(OTMResponse.self, from: newData) as Error
                     DispatchQueue.main.async {
-                        print("taskForPOSTRequest checkpoint 7")
                         completion(nil, errorResponse)
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        print("taskForPOSTRequest checkpoint 8")
                         completion(nil, error)
                     }
                 }
             }
         }
     task.resume()
-        
     }
-    
     
     //https://knowledge.udacity.com/questions/71759
     //https://knowledge.udacity.com/questions/270411

@@ -185,7 +185,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0g-j9-I5L">
-                                            <rect key="frame" x="20" y="11" width="43" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="101" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <accessibility key="accessibilityConfiguration" identifier="name" label="name"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -193,7 +193,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mediaURL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8St-27-mVn" userLabel="mediaURL">
-                                            <rect key="frame" x="185" y="10.5" width="79" height="21"/>
+                                            <rect key="frame" x="185" y="11" width="209" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <accessibility key="accessibilityConfiguration" identifier="mediaURL" label="mediaURL"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -224,7 +224,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZq-dj-151" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="729" y="-816"/>
+            <point key="canvasLocation" x="728.98550724637687" y="-816.29464285714278"/>
         </scene>
         <!--PostPinViewController-->
         <scene sceneID="9BT-Ln-zOy">

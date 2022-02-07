@@ -41,14 +41,15 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func dismissButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         print("check 1")
         if addressBox.text!.isEmpty {
-            let alert = UIAlertController(title: "No Location", message: "No Location was entered", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alert = UIAlertController(title: "Please Enter a Location", message: "No Location was entered", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK, I'll Enter a Location!", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             
         } else {
@@ -56,6 +57,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
             spinActivityIndicator(true)
             geocoder.geocodeAddressString(addressBox.text ?? "") { placemarks, error in
                 self.processAddress(withPlacemarks: placemarks, error: error)
+                //            self.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -71,18 +73,18 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
                 let coordinate = location.coordinate
                 self.latitude = Float(coordinate.latitude)
                 self.longitude = Float(coordinate.longitude)
+                //self.mediaUrl = urlBox.text
                 spinActivityIndicator(false)
-
                 let submitVC = storyboard?.instantiateViewController(identifier: "OnTheMapViewController") as! OnTheMapViewController
                 submitVC.userLoc = addressBox.text
-                submitVC.userURL = urlBox.text
+                submitVC.mediaURL = urlBox.text
                 submitVC.latitude = self.latitude
                 submitVC.longitude = self.longitude
                 self.present(submitVC, animated: true, completion: nil)
                 print("process address Success")
             } else {
                 spinActivityIndicator(false)
-                print(error ?? "Location Not Specific Enough")
+                print(error ?? "Location Must be More Specific")
             }
         }
     }

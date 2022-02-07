@@ -39,7 +39,7 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
     
     //struct PostAttributes {
     var userLoc: String!
-    var userURL: String!
+    var mediaURL: String!
     var latitude: Float!
     var longitude: Float!
     //}
@@ -76,12 +76,12 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             let firstName = pin.firstName
-            //let lastName = pin.lastName
+            let lastName = pin.lastName
             let mediaURL = pin.mediaURL
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = firstName ?? "Sam"
+            annotation.title = ("\(firstName)  \(lastName)")
             annotation.subtitle = mediaURL
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
@@ -117,6 +117,7 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
             let pin = MKPointAnnotation()
             pin.coordinate = response.mapItems[0].placemark.coordinate
             pin.title = response.mapItems[0].name
+            //pin.url = response.mapItems[0].placemark.mediaUrl
             self.mapView.addAnnotation(pin)
             self.mapView.setCenter(pin.coordinate, animated: true)
             let region = MKCoordinateRegion(center: pin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))

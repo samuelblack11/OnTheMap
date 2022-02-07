@@ -19,7 +19,7 @@ class PinTableViewController: UITableViewController {
     
     @IBOutlet var pinTableView: UITableView!
     
-    var results = [StudentInformation]()
+    //var results = [StudentInformation]()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
 
@@ -52,8 +52,12 @@ class PinTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PinTableViewCell") as! PinTableViewCell
         
         let pin = appDelegate.pins[(indexPath as NSIndexPath).row]
+        
 
-        cell.name.text = pin.firstName ?? "Sam"
+        
+        cell.name?.text = "\(pin.firstName ?? "Joe") \(pin.lastName ?? "Shmo")"
+
+        
         cell.mediaURL.text = pin.mediaURL ?? "https://google.com"
         return cell
     }
@@ -62,7 +66,7 @@ class PinTableViewController: UITableViewController {
         let tableCell = tableView.cellForRow(at: indexPath) as! PinTableViewCell
         let app = UIApplication.shared
         if let toOpen = tableCell.mediaURL?.text! {
-           app.open(URL(string: toOpen)!, options: [:], completionHandler: nil)
+            app.open(URL(string: toOpen)!)
         }
     }
     
