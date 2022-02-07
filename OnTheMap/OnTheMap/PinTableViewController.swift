@@ -21,10 +21,7 @@ class PinTableViewController: UITableViewController {
     
     //var results = [StudentInformation]()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
 
-    
-    
     func viewDidLoad(_ animated: Bool) {
         print("PinTableViewController viewDIDLOAD")
         super.viewWillAppear(animated)
@@ -52,12 +49,7 @@ class PinTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PinTableViewCell") as! PinTableViewCell
         
         let pin = appDelegate.pins[(indexPath as NSIndexPath).row]
-        
-
-        
         cell.name?.text = "\(pin.firstName ?? "Joe") \(pin.lastName ?? "Shmo")"
-
-        
         cell.mediaURL.text = pin.mediaURL ?? "https://google.com"
         return cell
     }

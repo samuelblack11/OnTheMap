@@ -44,6 +44,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    // https://github.com/jgerardo214/On-The-Map/blob/main/On%20the%20Map/Controller/InformationPostingVC.swift
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         print("check 1")
@@ -62,7 +63,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    
+   
     func processAddress(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
         if error != nil {
             spinActivityIndicator(false)
