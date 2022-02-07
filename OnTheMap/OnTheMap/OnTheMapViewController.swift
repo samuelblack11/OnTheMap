@@ -95,14 +95,14 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         print("Calling viewDidLoad")
         super.viewDidLoad()
-        // Check if pins have been added
-        if PostPinViewController().newPinStatus(PostPinViewController.newPinAdded) {
-            searchForNewPins()
-        }
-        
         OTMClient.getPin(completion: handlePinsResponse(pins:error:))
-        //PostPinViewController().addPin = false
         }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchForNewPins()
+    }
+    
     
     func searchForNewPins() {
         let searchRequest = MKLocalSearch.Request()
@@ -111,9 +111,6 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         search.start { (response, error) in
             
             guard let response = response else {
-                let alertVC = UIAlertController(title: "Location not found.", message: "Please input another location.", preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in self.navigationController?.popViewController(animated: true)}))
-                self.present(alertVC, animated: true, completion: nil)
                 return
             }
             

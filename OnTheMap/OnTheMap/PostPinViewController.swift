@@ -59,23 +59,12 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
-        
-    func newPinStatus(_ newPinAdded: Bool) -> Bool {
-        if newPinAdded {
-            return true
-        }
-        else {
-            return false
-        }
-    }
 
     
     func processAddress(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
         if error != nil {
             spinActivityIndicator(false)
             print(error ?? "Can't Find Location")
-            var newPinAdded = false
         } else {
             if let placemarks = placemarks, placemarks.count > 0 {
                 let location = (placemarks.first?.location)! as CLLocation
@@ -90,10 +79,9 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
                 submitVC.latitude = self.latitude
                 submitVC.longitude = self.longitude
                 self.present(submitVC, animated: true, completion: nil)
-                var newPinAdded = true
+                print("process address Success")
             } else {
                 spinActivityIndicator(false)
-                var newPinAdded = false
                 print(error ?? "Location Not Specific Enough")
             }
         }
