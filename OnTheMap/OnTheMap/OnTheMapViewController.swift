@@ -75,13 +75,13 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
             let longitude = CLLocationDegrees(pin.longitude)
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let firstName = pin.firstName
-            let lastName = pin.lastName
+            //let firstName = pin.firstName
+            let lastName = pin.lastName ?? "John"
             let mediaURL = pin.mediaURL
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = ("\(firstName)  \(lastName)")
+            annotation.title = ("\(lastName)")
             annotation.subtitle = mediaURL
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
@@ -91,17 +91,24 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.addAnnotations(annotations)
     }
     
-    
     override func viewDidLoad() {
         print("Calling viewDidLoad")
         super.viewDidLoad()
-        OTMClient.getPin(completion: handlePinsResponse(pins:error:))
-        }
+        OTMClient.getPin(completion: handlePinsResponse(pins: error: ))
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchForNewPins()
+            searchForNewPins()
     }
+    
+    func showFailure(title: String, message: String) {
+            // if no internet: Internet if Offline
+            // if credentials were incorrect: check email/password
+            let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            show(alertVC, sender: nil)
+        }
     
     
     func searchForNewPins() {
@@ -145,25 +152,46 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         }
         return pinView
     }
-
+    
     
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    enum URLError: Error {
+        case invalid
+        case valid
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) async throws {
+        print("Calling mapView")
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
-            if let toOpen = view.annotation?.subtitle! {
-                app.openURL(URL(string: toOpen)!)
+            let toOpen = view.annotation?.subtitle! ?? "noURL"
+            //guard await app.open(URL(string: toOpen)!) else { throw URLError.invalid }
+            do {
+                //try app.open(URL(string: toOpen)!)
+                //throw URLError.invalid
+                guard await app.open(URL(string: toOpen)!) else { throw URLError.invalid }
+
             }
+            catch {
+                showFailure(title: "URL Invalid", message: "Student did not provide a valid URL")
+            }
+            
+            
+            
         }
     }
+    
+    
+    //showFailure(title: "URL Invalid", message: "Student did not provide a valid URL")
     
     func handlePinsResponse(pins: [StudentInformation], error: Error?) {
         if error == nil {
             if self.mapView.annotations.count > 0 {
                 self.mapView.removeAnnotations(self.mapView.annotations)
             }
-            appDelegate.pins = pins
+            Pins().pins = pins
             showPins(pins)
         } else {
             print(error ?? "Error in handlePinsResponse")

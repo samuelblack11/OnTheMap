@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class OTMClient {
     
@@ -253,6 +254,8 @@ class OTMClient {
             }
         }
     }
+    
+
     
     class func logout(completion: @escaping (Bool, Error?) -> Void) {
         let _ = taskForDELETERequest(url: Endpoints.logout.url, response: LogoutResponse.self) { (response, error) in

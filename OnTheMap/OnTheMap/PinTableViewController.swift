@@ -24,15 +24,18 @@ class PinTableViewController: UITableViewController {
 
     func viewDidLoad(_ animated: Bool) {
         print("PinTableViewController viewDIDLOAD")
+        super.viewDidLoad()
+            OTMClient.getPin(completion: handlePinResponse(pins: error:))
+        }
+    
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        OTMClient.getPin(completion: handlePinResponse(pins: error:))
-        
-    }
+        }
     
     func handlePinResponse(pins: [StudentInformation], error: Error?) {
             print("Starting handlePinResponse.....")
             if error == nil {
-            appDelegate.pins = pins
+            Pins().pins = pins
             print("appDelegate.pins = pins")
             self.tableView.reloadData()
         } else {
@@ -41,15 +44,16 @@ class PinTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appDelegate.pins.count
+        return Pins().pins.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PinTableViewCell") as! PinTableViewCell
         
-        let pin = appDelegate.pins[(indexPath as NSIndexPath).row]
-        cell.name?.text = "\(pin.firstName ?? "Joe") \(pin.lastName ?? "Shmo")"
+        let pin = Pins().pins[(indexPath as NSIndexPath).row]
+        //cell.name?.text = "\(pin.firstName ?? "Joe") \(pin.lastName ?? "Shmo")"
+        cell.name?.text = pin.lastName
         cell.mediaURL.text = pin.mediaURL ?? "https://google.com"
         return cell
     }
@@ -60,6 +64,16 @@ class PinTableViewController: UITableViewController {
         if let toOpen = tableCell.mediaURL?.text! {
             app.open(URL(string: toOpen)!)
         }
+        else{
+            showFailure(title: "URL Invalid", message: "URL Invalid")
+        }
+        
+        func showFailure(title: String, message: String) {
+                let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                show(alertVC, sender: nil)
+            }
+        
     }
     
     @IBAction func clickLogout(_ sender: Any) {

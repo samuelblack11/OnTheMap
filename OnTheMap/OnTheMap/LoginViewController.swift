@@ -6,19 +6,31 @@
 //
 
 import UIKit
+import Network
 
 class LoginViewController: UIViewController {
 
-    //override func viewDidLoad() {
-     //   super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    //}
-            
         @IBOutlet weak var emailTextField: UITextField!
         @IBOutlet weak var passwordTextField: UITextField!
         @IBOutlet weak var loginButton: UIButton!
         @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-        
+        let monitor = NWPathMonitor()
+        var connected: Bool = true
+    
+ //  https://www.hackingwithswift.com/example-code/networking/how-to-check-for-internet-connectivity-using-nwpathmonitor
+    func connectivity() -> Bool {
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                print("Connected")
+                self.connected = true
+            }
+            else {
+                self.connected = false
+            }
+        }
+        return connected
+    }
+    
     
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
@@ -42,7 +54,7 @@ class LoginViewController: UIViewController {
             OTMClient.createSessionId(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: handleSessionResponse(success:error:))
         } else {
             print("error in handleLoginResponse")
-            showLoginFailure(message: error?.localizedDescription ?? "")
+            showLoginFailure(title: "Login Failed", message: error?.localizedDescription ?? "")
         }
     }
     
@@ -55,9 +67,15 @@ class LoginViewController: UIViewController {
             passwordTextField.text = ""
             performSegue(withIdentifier: "completeLogin", sender: self)
             print("handleSessionResponse SUCCESS!")
-        } else {
+        }
+        
+        else if connectivity() {
             print("error in handleLoginResponse")
-            showLoginFailure(message: error?.localizedDescription ?? "")
+            // if bad credentials
+            showLoginFailure(title: "Login Failed", message: "Invalid Login Credentials")
+            }
+        else {
+            showLoginFailure(title: "Login Failed", message: "No Internet Connection")
         }
     }
      
@@ -72,8 +90,10 @@ class LoginViewController: UIViewController {
             loginButton.isEnabled = !loggingIn
         }
         
-        func showLoginFailure(message: String) {
-            let alertVC = UIAlertController(title: "Login Failed", message: message, preferredStyle: .alert)
+    func showLoginFailure(title: String, message: String) {
+            // if no internet: Internet if Offline
+            // if credentials were incorrect: check email/password
+            let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             show(alertVC, sender: nil)
         }
