@@ -9,7 +9,13 @@ import Foundation
 import UIKit
 import CoreLocation
 
+//protocol FinalizeCreatePinVCDelegate: AnyObject {
+//    func dismissFinalizeCreatePinVC()
+//}
+
 class PostPinViewController: UIViewController, UITextFieldDelegate {
+    
+    
     
     @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var dismissButton: UIBarButtonItem!
@@ -18,6 +24,12 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var urlBox: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var studentPins = [StudentInformation]()
+    var studentPin: StudentInformation!
+    //var delegate: FinalizeCreatePinVCDelegate?
+
+
+
     
        var geocoder = CLGeocoder()
        var latitude: Float = 0.0
@@ -44,37 +56,63 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    func showFailure(title: String, message: String) {
+            // if no internet: Internet if Offline
+            // if credentials were incorrect: check email/password
+            let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            show(alertVC, sender: nil)
+        }
+    
     // https://github.com/jgerardo214/On-The-Map/blob/main/On%20the%20Map/Controller/InformationPostingVC.swift
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         print("check 1")
         if addressBox.text!.isEmpty {
+            print("addressbox empty")
             let alert = UIAlertController(title: "Please Enter a Location", message: "No Location was entered", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK, I'll Enter a Location!", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             
         } else {
-            print("check 2**")
+            print("else")
             spinActivityIndicator(true)
-            geocoder.geocodeAddressString(addressBox.text ?? "") { placemarks, error in
-                self.processAddress(withPlacemarks: placemarks, error: error)
-                //            self.dismiss(animated: true, completion: nil)
+            print("else 2")
+                geocoder.geocodeAddressString(addressBox.text ?? "") { placemarks, error in
+                    self.processAddress(withPlacemarks: placemarks, error: error)
+                }
+            print("else 3")
             }
         }
+    
+    
+
+    
+    func createStudentInstance(_ coordinate: CLLocationCoordinate2D) -> StudentInformation {
+        
+        
+        let studentPin = StudentInformation(objectId: "", uniqueKey: "12345", firstName: "Joe", lastName: "Shmo", mapString: "", mediaURL:"https://www.economist.com", latitude: coordinate.latitude, longitude: coordinate.longitude, createdAt: "test", updatedAt: "")
+        return studentPin
     }
+    
 
    
     func processAddress(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
+        print("processAddress 1")
         if error != nil {
             spinActivityIndicator(false)
             print(error ?? "Can't Find Location")
-        } else {
+            print("geocoding failed in processAddress")
+            showFailure(title: "Geocoding Failed", message: "Geocoding Failed")
+        }
+        else {
+            print ("else 1")
             if let placemarks = placemarks, placemarks.count > 0 {
                 let location = (placemarks.first?.location)! as CLLocation
                 let coordinate = location.coordinate
                 self.latitude = Float(coordinate.latitude)
                 self.longitude = Float(coordinate.longitude)
-                //self.mediaUrl = urlBox.text
                 spinActivityIndicator(false)
                 let submitVC = storyboard?.instantiateViewController(identifier: "OnTheMapViewController") as! OnTheMapViewController
                 submitVC.userLoc = addressBox.text
@@ -83,12 +121,28 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
                 submitVC.longitude = self.longitude
                 self.present(submitVC, animated: true, completion: nil)
                 print("process address Success")
-            } else {
-                spinActivityIndicator(false)
-                print(error ?? "Location Must be More Specific")
-            }
+                // https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
+                let today = Date()
+                let formatter1 = DateFormatter()
+                formatter1.dateStyle = .short
+                print(formatter1.string(from: today))
+                
+                
+                
+                
+                // Post the Pin
+                OTMClient.postPin(with: createStudentInstance(coordinate), completion: { (success, error) in
+                if error != nil {
+                    self.showFailure(title: "Unable to Post Location", message: "Unable to Post Location")
+                    }
+                DispatchQueue.main.async {
+                    //self.delegate?.dismissFinalizeCreatePinVC()
+                    print("No error in Post")
+                    }
+                })            }
         }
     }
+                                  
     
     func spinActivityIndicator(_ searchingForAddress: Bool) {
         if searchingForAddress {

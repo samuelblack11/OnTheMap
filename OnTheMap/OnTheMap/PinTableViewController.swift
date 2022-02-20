@@ -15,66 +15,76 @@ class PinTableViewCell: UITableViewCell {
 
 class PinTableViewController: UITableViewController {
     var selectedName: String = "PinTableViewController"
-
     
+    // https://knowledge.udacity.com/questions/188630
+    var studentPins = [StudentInformation]()
+
     @IBOutlet var pinTableView: UITableView!
     
-    //var results = [StudentInformation]()
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
     func viewDidLoad(_ animated: Bool) {
         print("PinTableViewController viewDIDLOAD")
         super.viewDidLoad()
-            OTMClient.getPin(completion: handlePinResponse(pins: error:))
-        }
+        pinTableView.delegate = self
+        pinTableView.dataSource = self
+        OTMClient.getPin(completion: handlePinResponse(pins: error:))
+        OTMClient.getPin(completion: handlePinResponse(pins: error:))
+    }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("PinTableViewController viewWillAppear called")
         super.viewWillAppear(animated)
+        OTMClient.getPin(completion: handlePinResponse(pins: error:))
         }
     
     func handlePinResponse(pins: [StudentInformation], error: Error?) {
             print("Starting handlePinResponse.....")
             if error == nil {
-            Pins().pins = pins
-            print("appDelegate.pins = pins")
-            self.tableView.reloadData()
+                self.studentPins = pins
+                print("\(pins.count)")
+                self.tableView.reloadData()
+                self.pinTableView.reloadData()
         } else {
-            print("handlePinResponse failed")
+            showFailure(title: "Unable to Get Pins", message: "Unable to Get Pins")
         }
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Pins().pins.count
+    
+    
+    
+    
+   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("numberofRowsInSection: \(studentPins.count)")
+        return studentPins.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PinTableViewCell") as! PinTableViewCell
-        
-        let pin = Pins().pins[(indexPath as NSIndexPath).row]
-        //cell.name?.text = "\(pin.firstName ?? "Joe") \(pin.lastName ?? "Shmo")"
-        cell.name?.text = pin.lastName
-        cell.mediaURL.text = pin.mediaURL ?? "https://google.com"
+        let pin = studentPins[(indexPath as NSIndexPath).row]
+        cell.name?.text = "\(pin.firstName ?? "NoFirstName") \(pin.lastName ?? "NoLastName")"
+        //cell.name?.text = pin.lastName
+        cell.mediaURL.text = pin.mediaURL
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tableCell = tableView.cellForRow(at: indexPath) as! PinTableViewCell
-        let app = UIApplication.shared
-        if let toOpen = tableCell.mediaURL?.text! {
-            app.open(URL(string: toOpen)!)
+        if let webAddress = tableCell.mediaURL?.text! {
+            if let url = URL(string: webAddress) {
+                UIApplication.shared.open(url)
+            }
+            else {
+                self.showFailure(title: "Invalid URL", message: "Is there a valid URL for this pin?")
+            }
         }
-        else{
-            showFailure(title: "URL Invalid", message: "URL Invalid")
-        }
-        
+    }
+            
+            
         func showFailure(title: String, message: String) {
                 let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 show(alertVC, sender: nil)
             }
-        
-    }
     
     @IBAction func clickLogout(_ sender: Any) {
         OTMClient.logout(completion: handleLogoutResponse(success:error:))
@@ -88,5 +98,5 @@ class PinTableViewController: UITableViewController {
                 print("Logout Failed")
         }
     }
-    
+
 }

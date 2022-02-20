@@ -39,7 +39,7 @@ class OTMClient {
             case .studentLoc:
                 return Endpoints.base + "StudentLocation?limit=100&order=-updatedAt"
             }
-            }
+        }
         var url: URL {
             return URL(string: stringValue)!
         }
@@ -229,27 +229,48 @@ class OTMClient {
         task.resume()
         return task
     }
+    
+
+    
+    // https://github.com/Casben/OnTheMap/blob/master/OnTheMap/Networking/NetworkManager.swift
+    class func postPin(with student: StudentInformation, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.httpBody = "{\"uniqueKey\": \"12345\", \"firstName\": \"\(student.firstName!)\", \"lastName\": \"\(student.lastName!)\",\"mapString\": \"\(student.mapString!)\", \"mediaURL\": \"\(student.mediaURL!)\",\"latitude\": \(student.latitude!), \"longitude\": \(student.longitude!)}".data(using: .utf8)
+
         
-    class func postPin(objectId: String, uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, createdAt: String, updatedAt: String, completion: @escaping ([StudentInformation], Error?) -> Void) {
         
-        let body = StudentInformation(objectId: objectId, uniqueKey: uniqueKey, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude, longitude: longitude, createdAt: createdAt, updatedAt: updatedAt)
-        
-        let _ = postReq(url: Endpoints.studentLoc.url, trim: false,
-                        body: body,
-                            responseType: PinResponse.self) { (response, error) in
-            if let response = response {
-                completion(response.results, nil)
-            } else {
-                completion([], error)
-            }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+          if error != nil { // Handle error…
+              return
+          }
+          print(String(data: data!, encoding: .utf8)!)
         }
+        task.resume()
     }
     
-    class func getPin(completion: @escaping ([StudentInformation], Error?) -> Void) {
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    // may go back to throws before curly bracket
+    class func getPin(completion: @escaping ([StudentInformation], Error?) -> Void)  {
         let _ = getReq(url: Endpoints.studentLoc.url, responseType: PinResponse.self) { (response, error) in
             if let response = response {
                 completion(response.results, nil)
             } else {
+                
                 completion([], error)
             }
         }

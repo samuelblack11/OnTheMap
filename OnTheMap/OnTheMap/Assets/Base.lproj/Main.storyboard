@@ -161,7 +161,7 @@
         <scene sceneID="XFR-vX-LkZ">
             <objects>
                 <tableViewController id="fVN-nu-w1l" userLabel="PinTableViewController" customClass="PinTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="0si-Mn-VOg">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="0si-Mn-VOg" userLabel="pinTableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -219,7 +219,7 @@
                     <tabBarItem key="tabBarItem" title="Table" image="tablecells" catalog="system" id="89q-Oe-T6B" userLabel="Table"/>
                     <navigationItem key="navigationItem" id="gkk-jM-0za"/>
                     <connections>
-                        <outlet property="tableView" destination="0si-Mn-VOg" id="Exf-as-cUK"/>
+                        <outlet property="pinTableView" destination="0si-Mn-VOg" id="KkD-7P-nJH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZq-dj-151" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -71,17 +71,17 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         for pin in pins {
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
-            let latitude = CLLocationDegrees(pin.latitude)
-            let longitude = CLLocationDegrees(pin.longitude)
+            let latitude = CLLocationDegrees(pin.latitude!)
+            let longitude = CLLocationDegrees(pin.longitude!)
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            //let firstName = pin.firstName
-            let lastName = pin.lastName ?? "John"
+            let firstName = pin.firstName ?? "(No First Name Provided)"
+            let lastName = pin.lastName ?? "(No Last Name Provided)"
             let mediaURL = pin.mediaURL
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = ("\(lastName)")
+            annotation.title = ("\(firstName) \(lastName)")
             annotation.subtitle = mediaURL
             // Finally we place the annotation in an array of annotations.
             annotations.append(annotation)
@@ -91,11 +91,17 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.addAnnotations(annotations)
     }
     
+    enum pinError: Error {
+        
+    }
+    
     override func viewDidLoad() {
         print("Calling viewDidLoad")
         super.viewDidLoad()
         OTMClient.getPin(completion: handlePinsResponse(pins: error: ))
     }
+
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -161,30 +167,33 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         case valid
     }
     
-    
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) async throws {
+    //https://stackoverflow.com/questions/63101116/correct-way-to-handle-incorrect-url-when-opening
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("Calling mapView")
         if control == view.rightCalloutAccessoryView {
-            let app = UIApplication.shared
-            let toOpen = view.annotation?.subtitle! ?? "noURL"
-            //guard await app.open(URL(string: toOpen)!) else { throw URLError.invalid }
-            do {
-                //try app.open(URL(string: toOpen)!)
-                //throw URLError.invalid
-                guard await app.open(URL(string: toOpen)!) else { throw URLError.invalid }
+            if let toOpen = view.annotation?.subtitle! {
+                
+                print("---------------")
+                print(toOpen)
+                print("---------------")
+                let url = URL(string: toOpen)!
+                print(url)
+                print("---------------")
+                UIApplication.shared.open(url, completionHandler: { success in
+                    if success {
+                        print("opened")
+                    } else {
+                        print("failed")
+                        self.showFailure(title: "Invalid URL", message: "Is there a valid URL for this pin?")
+                    }
+                })
+                
+                
 
             }
-            catch {
-                showFailure(title: "URL Invalid", message: "Student did not provide a valid URL")
-            }
-            
-            
-            
         }
     }
-    
-    
-    //showFailure(title: "URL Invalid", message: "Student did not provide a valid URL")
+                                          
     
     func handlePinsResponse(pins: [StudentInformation], error: Error?) {
         if error == nil {
@@ -194,6 +203,7 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
             Pins().pins = pins
             showPins(pins)
         } else {
+            showFailure(title: "Unable to Get Pins", message: "Unable to Get Pins")
             print(error ?? "Error in handlePinsResponse")
         }
         }

@@ -19,8 +19,8 @@ struct StudentInformation: Codable, Equatable {
         let lastName: String?
         let mapString: String?
         let mediaURL: String?
-        let latitude: Double
-        let longitude: Double
+        let latitude: Double?
+        let longitude: Double?
         let createdAt: String?
         let updatedAt: String?
     
