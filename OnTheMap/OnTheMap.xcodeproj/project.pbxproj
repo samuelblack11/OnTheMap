@@ -26,6 +26,7 @@
 		26707DA5279CC56F0006CFD9 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707DA4279CC56F0006CFD9 /* SessionResponse.swift */; };
 		26707DA7279CC5960006CFD9 /* OTMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707DA6279CC5960006CFD9 /* OTMResponse.swift */; };
 		26707DA9279CC8CE0006CFD9 /* RequestTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26707DA8279CC8CE0006CFD9 /* RequestTokenResponse.swift */; };
+		267D4C4527C282BE0054CC9B /* UserInforResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267D4C4427C282BE0054CC9B /* UserInforResponse.swift */; };
 		2689909D279F778E00844D1D /* PinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2689909C279F778E00844D1D /* PinResponse.swift */; };
 		26A0C034279E110C00F03A97 /* OnTheMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A0C033279E110B00F03A97 /* OnTheMapViewController.swift */; };
 		26B95867279D88980019D049 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B95866279D88980019D049 /* GradientView.swift */; };
@@ -56,6 +57,7 @@
 		26707DA4279CC56F0006CFD9 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
 		26707DA6279CC5960006CFD9 /* OTMResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTMResponse.swift; sourceTree = "<group>"; };
 		26707DA8279CC8CE0006CFD9 /* RequestTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTokenResponse.swift; sourceTree = "<group>"; };
+		267D4C4427C282BE0054CC9B /* UserInforResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInforResponse.swift; sourceTree = "<group>"; };
 		2689909C279F778E00844D1D /* PinResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinResponse.swift; sourceTree = "<group>"; };
 		26A0C033279E110B00F03A97 /* OnTheMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapViewController.swift; sourceTree = "<group>"; };
 		26B95866279D88980019D049 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				26D9947027AF061900A5FE73 /* StudentInformation.swift */,
 				26D9947427AF138400A5FE73 /* LogoutResponse.swift */,
 				261B097D27B1D81200EFAFA2 /* Pins.swift */,
+				267D4C4427C282BE0054CC9B /* UserInforResponse.swift */,
 			);
 			name = "OTM Responses";
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				26707DA7279CC5960006CFD9 /* OTMResponse.swift in Sources */,
 				26707D7D279CC0610006CFD9 /* SceneDelegate.swift in Sources */,
 				26707D95279CC18A0006CFD9 /* LoginTextField.swift in Sources */,
+				267D4C4527C282BE0054CC9B /* UserInforResponse.swift in Sources */,
 				26D9947327AF072800A5FE73 /* PinTableViewController.swift in Sources */,
 				26707DA9279CC8CE0006CFD9 /* RequestTokenResponse.swift in Sources */,
 				26A0C034279E110C00F03A97 /* OnTheMapViewController.swift in Sources */,

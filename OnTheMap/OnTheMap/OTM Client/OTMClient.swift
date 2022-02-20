@@ -14,6 +14,7 @@ class OTMClient {
     struct Auth {
         static var requestToken = ""
         static var sessionId = ""
+        static var uniqueKey = ""
     }
     
     enum Endpoints {
@@ -24,6 +25,7 @@ class OTMClient {
         case logout
         case webAuth
         case studentLoc
+        case getUserData
         
         var stringValue: String {
             switch self {
@@ -36,6 +38,8 @@ class OTMClient {
                 return Endpoints.base + "session"
             case .webAuth:
                 return Endpoints.base + "session"
+            case .getUserData:
+                return Endpoints.base + "/users/\(Auth.uniqueKey)"
             case .studentLoc:
                 return Endpoints.base + "StudentLocation?limit=100&order=-updatedAt"
             }
@@ -137,38 +141,39 @@ class OTMClient {
         }
     task.resume()
     }
-
-    class func getReq<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionDataTask {
-            
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    
+    
+    class func taskForGETRequest<ResponseType: Decodable>(url: URL, removeFirstCharacters: Bool, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionTask {
+            let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
                 guard let data = data else {
                     DispatchQueue.main.async {
                         completion(nil, error)
                     }
                     return
                 }
+                print("taskForGetRequest \(data)")
+                var newData = data
+                if removeFirstCharacters {
+                    let range = 5..<data.count
+                    newData = newData.subdata(in: range) /* subset response data! */
+                }
                 let decoder = JSONDecoder()
                 do {
-                    let responseObject = try decoder.decode(ResponseType.self, from: data)
+                    let responseObject = try decoder.decode(ResponseType.self, from: newData)
                     DispatchQueue.main.async {
                         completion(responseObject, nil)
+                        print("responseObject \(responseObject)")
                     }
                 } catch {
-                    do {
-                        let errorResponse = try decoder.decode(OTMResponse.self, from: data) as Error
-                        DispatchQueue.main.async {
-                            completion(nil, errorResponse)
-                        }
-                    } catch {
-                        DispatchQueue.main.async {
-                            completion(nil, error)
-                        }
+                    DispatchQueue.main.async {
+                        completion(nil, error)
                     }
                 }
             }
-        task.resume()
-        return task
-    }
+            task.resume()
+            
+            return task
+        }
     
     
     class func postReq<RequestType: Encodable, ResponseType: Decodable>(url: URL, trim: Bool, body: RequestType, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) {
@@ -252,31 +257,35 @@ class OTMClient {
         task.resume()
     }
     
+    
+    
+    class func getUserData(completion: @escaping (String?, String?, Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getUserData.url, removeFirstCharacters: true, response: UserInfoResponse.self, completion: { (response, error) in
+            if let response = response {
+                print("response \(response)")
+                completion(response.firstName, response.lastName, nil)
+                print(response.firstName)
+                print(response.lastName)
+            } else {
+                print("getUserData Error: \(error)")
+                completion(nil, nil, error)
+            }
+        })
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }
     
 
     // may go back to throws before curly bracket
     class func getPin(completion: @escaping ([StudentInformation], Error?) -> Void)  {
-        let _ = getReq(url: Endpoints.studentLoc.url, responseType: PinResponse.self) { (response, error) in
+        let _ = taskForGETRequest(url: Endpoints.studentLoc.url, removeFirstCharacters: false, response: PinResponse.self, completion: { (response, error) in
             if let response = response {
                 completion(response.results, nil)
             } else {
                 
                 completion([], error)
             }
-        }
+        })
     }
-    
-
     
     class func logout(completion: @escaping (Bool, Error?) -> Void) {
         let _ = taskForDELETERequest(url: Endpoints.logout.url, response: LogoutResponse.self) { (response, error) in
