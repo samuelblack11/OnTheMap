@@ -1,12 +1,11 @@
 //
-//  UserInforResponse.swift
+//  UserInfoResponse.swift
 //  OnTheMap
 //
 //  Created by Sam Black on 2/20/22.
 //
 
 import Foundation
-
 struct UserInfoResponse: Codable {
     let firstName: String
     let lastName: String

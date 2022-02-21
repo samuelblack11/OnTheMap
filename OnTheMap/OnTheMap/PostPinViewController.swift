@@ -85,39 +85,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
             print("else 3")
             }
         }
-    
-    // https://github.com/xandebianchi/OnTheMap/blob/main/OnTheMap/Controller/InformationConfirmingViewController.swift
-    func handleUserData(firstName: String?, lastName: String?, error: Error?) {
-        if error == nil {
-            print("studentPin: \(studentPin)")
-            OTMClient.postPin(with: studentPin, completion: handlePostStudentResponse(success:error:))
-        } else {
-            showFailure(title: "Not Possible to Get User Information", message: error?.localizedDescription ?? "")
-        }
-    }
-    
-    func handlePostStudentResponse(success: Bool, error: Error?) {
-        if success {
-            self.navigationController?.dismiss(animated: true, completion: nil)
-        } else {
-            showFailure(title: "Not Possible to Save Information", message: error?.localizedDescription ?? "")
-        }
-    }
-    
 
-    
-    func createStudentInstance(_ coordinate: CLLocationCoordinate2D) -> StudentInformation {
-        // https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
-        let today = Date()
-        let formatter1 = DateFormatter()
-        formatter1.dateStyle = .short
-        print(formatter1.string(from: today))
-        OTMClient.getUserData(completion: handleUserData(firstName:lastName:error:))
-
-        
-        let studentPin = StudentInformation(objectId: "", uniqueKey: "12345", firstName: "Joe", lastName: "Shmo", mapString: "mapString", mediaURL: urlBox.text, latitude: coordinate.latitude, longitude: coordinate.longitude, createdAt: formatter1.string(from: today), updatedAt: formatter1.string(from: today))
-        return studentPin
-    }
     
 
    
@@ -156,6 +124,48 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
                 })            }
         }
     }
+    
+    func createStudentInstance(_ coordinate: CLLocationCoordinate2D) -> StudentInformation {
+        // https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
+        let today = Date()
+        let formatter1 = DateFormatter()
+        formatter1.dateStyle = .short
+        print(formatter1.string(from: today))
+        print("Trying to get user data......")
+
+        
+        OTMClient.getUserData(completion: handleUserData(firstName:lastName:error:))
+        print("----------")
+        print("Got user data")
+
+        let studentPin = StudentInformation(objectId: "", uniqueKey: OTMClient.Endpoints.Auth.uniqueKey, firstName: UserInfoResponse.firstName, lastName: "testtesttest", mapString: "mapString", mediaURL: urlBox.text, latitude: coordinate.latitude, longitude: coordinate.longitude, createdAt: formatter1.string(from: today), updatedAt: formatter1.string(from: today))
+
+        return studentPin
+    }
+    
+    
+    func handleUserData(firstName: String?, lastName: String?, error: Error?) {
+        if error == nil {
+            ////////////////////////////////////
+            
+            print("no error in handleUserData")
+        } else {
+            showFailure(title: "Not Possible to Get User Information", message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func handlePostStudentResponse(success: Bool, error: Error?) {
+        if success {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        } else {
+            showFailure(title: "Not Possible to Save Information", message: error?.localizedDescription ?? "")
+        }
+    }
+    
+
+
+    
+    
                                   
     
     func spinActivityIndicator(_ searchingForAddress: Bool) {
@@ -165,6 +175,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
             activityIndicator.stopAnimating()
         }
     }
+    
     
     
     // MARK: Keyboard Functions

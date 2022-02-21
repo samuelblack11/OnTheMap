@@ -11,11 +11,7 @@ import UIKit
 class OTMClient {
     
     
-    struct Auth {
-        static var requestToken = ""
-        static var sessionId = ""
-        static var uniqueKey = ""
-    }
+
     
     enum Endpoints {
         static let base = "https://onthemap-api.udacity.com/v1/"
@@ -26,6 +22,12 @@ class OTMClient {
         case webAuth
         case studentLoc
         case getUserData
+        
+        struct Auth {
+            static var requestToken = ""
+            static var sessionId = ""
+            static var uniqueKey = ""
+        }
         
         var stringValue: String {
             switch self {
@@ -55,7 +57,8 @@ class OTMClient {
         let body = LoginRequest(username: username, password: password)
         taskForPOSTRequest(username: body.username, password: body.password, url: Endpoints.createSessionId.url, responseType: SessionResponse.self, body: body) { response, error in
             if let response = response {
-                Auth.sessionId = response.session.sessionId
+                Endpoints.Auth.sessionId = response.session.sessionId
+                Endpoints.Auth.uniqueKey = response.account.key
                 completion(true, nil)
             } else {
                 completion(false, nil)
@@ -122,11 +125,11 @@ class OTMClient {
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
         request.httpBody = "{\"udacity\": {\"username\": \"\(body.username)\", \"password\": \"\(body.password)\"}}".data(using: .utf8)
         request.httpMethod = "POST"
-        //request.httpBody = try! JSONEncoder().encode(body)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         // Error in handleRequestTokenResponse here
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            print("Printing RESPONSE: \(response)")
             if error != nil { // Handle error…
                 completion(false, error)
                 return
@@ -136,8 +139,9 @@ class OTMClient {
         let newData = data?.subdata(in: range) /* subset response data! */
         print(String(data: newData!, encoding: .utf8)!)
         completion(true, nil)
+        //Endpoints.Auth.uniqueKey = response.account.key
         print("login func complete, true")
-        }
+            }
         }
     task.resume()
     }
@@ -151,7 +155,6 @@ class OTMClient {
                     }
                     return
                 }
-                print("taskForGetRequest \(data)")
                 var newData = data
                 if removeFirstCharacters {
                     let range = 5..<data.count
@@ -162,7 +165,6 @@ class OTMClient {
                     let responseObject = try decoder.decode(ResponseType.self, from: newData)
                     DispatchQueue.main.async {
                         completion(responseObject, nil)
-                        print("responseObject \(responseObject)")
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -244,8 +246,6 @@ class OTMClient {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         request.httpBody = "{\"uniqueKey\": \"12345\", \"firstName\": \"\(student.firstName!)\", \"lastName\": \"\(student.lastName!)\",\"mapString\": \"\(student.mapString!)\", \"mediaURL\": \"\(student.mediaURL!)\",\"latitude\": \(student.latitude!), \"longitude\": \(student.longitude!)}".data(using: .utf8)
-
-        
         
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
@@ -256,8 +256,6 @@ class OTMClient {
         }
         task.resume()
     }
-    
-    
     
     class func getUserData(completion: @escaping (String?, String?, Error?) -> Void) {
         taskForGETRequest(url: Endpoints.getUserData.url, removeFirstCharacters: true, response: UserInfoResponse.self, completion: { (response, error) in
@@ -271,7 +269,6 @@ class OTMClient {
                 completion(nil, nil, error)
             }
         })
-
     }
     
 
