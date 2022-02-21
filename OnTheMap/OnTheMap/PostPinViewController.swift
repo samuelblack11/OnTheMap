@@ -52,8 +52,8 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
        
     
     @IBAction func dismissButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-        
+        let otmVC = storyboard?.instantiateViewController(identifier: "OnTheMapViewController") as! OnTheMapViewController
+        self.present(otmVC, animated: true, completion: nil)
     }
     
     
@@ -107,13 +107,14 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
                 let submitVC = storyboard?.instantiateViewController(identifier: "OnTheMapViewController") as! OnTheMapViewController
                 submitVC.userLoc = addressBox.text
                 submitVC.mediaURL = urlBox.text
+                //OTMClient.Endpoints.Auth.mediaURL = urlBox.text ?? "https://www.google.com"
                 submitVC.latitude = self.latitude
                 submitVC.longitude = self.longitude
                 self.present(submitVC, animated: true, completion: nil)
                 print("process address Success")
                 
                 // Post the Pin
-                OTMClient.postPin(with: createStudentInstance(coordinate), completion: { (success, error) in
+                OTMClient.postPin(with: createStudentInstance(coordinate, url: submitVC.mediaURL), completion: { (success, error) in
                 if error != nil {
                     self.showFailure(title: "Unable to Post Location", message: "Unable to Post Location")
                     }
@@ -125,7 +126,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func createStudentInstance(_ coordinate: CLLocationCoordinate2D) -> StudentInformation {
+    func createStudentInstance(_ coordinate: CLLocationCoordinate2D, url: String) -> StudentInformation {
         // https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
         let today = Date()
         let formatter1 = DateFormatter()
@@ -134,20 +135,19 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
         print("Trying to get user data......")
 
         
-        OTMClient.getUserData(completion: handleUserData(firstName:lastName:error:))
+        OTMClient.getUserData(completion: handleUserData(bool:error:))
         print("----------")
         print("Got user data")
 
-        let studentPin = StudentInformation(objectId: "", uniqueKey: OTMClient.Endpoints.Auth.uniqueKey, firstName: UserInfoResponse.firstName, lastName: "testtesttest", mapString: "mapString", mediaURL: urlBox.text, latitude: coordinate.latitude, longitude: coordinate.longitude, createdAt: formatter1.string(from: today), updatedAt: formatter1.string(from: today))
+        let studentPin = StudentInformation(objectId: "", uniqueKey: OTMClient.Endpoints.Auth.uniqueKey, firstName: OTMClient.Endpoints.Auth.firstName, lastName: OTMClient.Endpoints.Auth.lastName, mapString: "mapString", mediaURL: url, latitude: coordinate.latitude, longitude: coordinate.longitude, createdAt: formatter1.string(from: today), updatedAt: formatter1.string(from: today))
 
         return studentPin
     }
     
     
-    func handleUserData(firstName: String?, lastName: String?, error: Error?) {
-        if error == nil {
+    func handleUserData(bool: Bool, error: Error?) {
+        if bool {
             ////////////////////////////////////
-            
             print("no error in handleUserData")
         } else {
             showFailure(title: "Not Possible to Get User Information", message: error?.localizedDescription ?? "")

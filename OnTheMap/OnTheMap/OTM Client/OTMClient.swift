@@ -27,6 +27,9 @@ class OTMClient {
             static var requestToken = ""
             static var sessionId = ""
             static var uniqueKey = ""
+            static var firstName = ""
+            static var lastName = ""
+            //static var mediaURL = ""
         }
         
         var stringValue: String {
@@ -257,16 +260,16 @@ class OTMClient {
         task.resume()
     }
     
-    class func getUserData(completion: @escaping (String?, String?, Error?) -> Void) {
+    class func getUserData(completion: @escaping (Bool, Error?) -> Void) {
         taskForGETRequest(url: Endpoints.getUserData.url, removeFirstCharacters: true, response: UserInfoResponse.self, completion: { (response, error) in
             if let response = response {
-                print("response \(response)")
-                completion(response.firstName, response.lastName, nil)
-                print(response.firstName)
-                print(response.lastName)
+                OTMClient.Endpoints.Auth.firstName = response.firstName
+                OTMClient.Endpoints.Auth.lastName = response.lastName
+
+                completion(true, nil)
+
             } else {
-                print("getUserData Error: \(error)")
-                completion(nil, nil, error)
+                completion(false, error)
             }
         })
     }
