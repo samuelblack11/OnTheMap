@@ -265,7 +265,9 @@ class OTMClient {
             if let response = response {
                 OTMClient.Endpoints.Auth.firstName = response.firstName
                 OTMClient.Endpoints.Auth.lastName = response.lastName
-
+                print("getUserData -------")
+                print(OTMClient.Endpoints.Auth.firstName)
+                print(OTMClient.Endpoints.Auth.lastName)
                 completion(true, nil)
 
             } else {
