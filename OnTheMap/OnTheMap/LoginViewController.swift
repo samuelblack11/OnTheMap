@@ -17,7 +17,8 @@ class LoginViewController: UIViewController {
         let monitor = NWPathMonitor()
         var connected: Bool = true
     
- //  https://www.hackingwithswift.com/example-code/networking/how-to-check-for-internet-connectivity-using-nwpathmonitor
+    
+// https://www.hackingwithswift.com/example-code/networking/how-to-check-for-internet-connectivity-using-nwpathmonitor
     func connectivity() -> Bool {
         monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
@@ -45,18 +46,32 @@ class LoginViewController: UIViewController {
             print("setLoggingIn worked....")
             print("Attempting login function now....")
             OTMClient.login(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleLoginResponse(success:error:))
+
         }
+    
         
     func handleLoginResponse(success: Bool, error: Error?) {
         print("trying handleLoginResponse....")
         if success {
             print("success in handleLoginResponse")
-            OTMClient.createSessionId(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: handleSessionResponse(success:error:))
+            DispatchQueue.main.async {
+
+                OTMClient.createSessionId(username: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "", completion: self.handleSessionResponse(success:error:))
+            }
+
         } else {
             print("error in handleLoginResponse")
             showLoginFailure(title: "Login Failed", message: error?.localizedDescription ?? "")
         }
     }
+    
+    
+    @IBAction func loginToMapSeg(_ sender: Any) {
+        performSegue(withIdentifier: "loginToMap", sender: sender)
+    }
+    
+    
+    
     
     func handleSessionResponse(success: Bool, error: Error?) {
         print("trying handleSessionResponse....")
@@ -65,8 +80,8 @@ class LoginViewController: UIViewController {
             // Clear these text fields for when user logs out
             emailTextField.text = ""
             passwordTextField.text = ""
-            performSegue(withIdentifier: "completeLogin", sender: self)
             print("handleSessionResponse SUCCESS!")
+            loginToMapSeg(loginButton)
         }
         
         else if connectivity() {

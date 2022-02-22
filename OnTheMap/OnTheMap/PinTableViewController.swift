@@ -49,7 +49,15 @@ class PinTableViewController: UITableViewController {
     }
     
     
+    @IBAction func pressMapButton(_ sender: Any) {
+        performSegue(withIdentifier: "tableToMap", sender: nil)
+
+    }
     
+    @IBAction func pressPinButton(_ sender: Any) {
+        performSegue(withIdentifier: "tableToPin", sender: nil)
+
+    }
     
     
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

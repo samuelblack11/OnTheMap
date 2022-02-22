@@ -95,6 +95,15 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    @IBAction func pressTableButton(_ sender: Any) {
+        performSegue(withIdentifier: "mapToTable", sender: nil)
+
+    }
+    
+    @IBAction func pressPinButton(_ sender: Any) {
+        performSegue(withIdentifier: "mapToPost", sender: nil)
+    }
+    
     override func viewDidLoad() {
         print("Calling viewDidLoad")
         super.viewDidLoad()
