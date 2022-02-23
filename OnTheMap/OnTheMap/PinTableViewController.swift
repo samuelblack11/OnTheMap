@@ -55,7 +55,7 @@ class PinTableViewController: UITableViewController {
     }
     
     @IBAction func pressPinButton(_ sender: Any) {
-        performSegue(withIdentifier: "tableToPin", sender: nil)
+        performSegue(withIdentifier: "tableToPost", sender: nil)
 
     }
     
@@ -96,7 +96,8 @@ class PinTableViewController: UITableViewController {
     
     @IBAction func clickLogout(_ sender: Any) {
         OTMClient.logout(completion: handleLogoutResponse(success:error:))
-        self.dismiss(animated: true, completion: nil)
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     func handleLogoutResponse(success: Bool, error: Error?) {

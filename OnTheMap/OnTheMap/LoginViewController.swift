@@ -64,15 +64,7 @@ class LoginViewController: UIViewController {
             showLoginFailure(title: "Login Failed", message: error?.localizedDescription ?? "")
         }
     }
-    
-    
-    @IBAction func loginToMapSeg(_ sender: Any) {
-        performSegue(withIdentifier: "loginToMap", sender: sender)
-    }
-    
-    
-    
-    
+        
     func handleSessionResponse(success: Bool, error: Error?) {
         print("trying handleSessionResponse....")
         setLoggingIn(false)
@@ -81,7 +73,7 @@ class LoginViewController: UIViewController {
             emailTextField.text = ""
             passwordTextField.text = ""
             print("handleSessionResponse SUCCESS!")
-            loginToMapSeg(loginButton)
+            performSegue(withIdentifier: "loginToMap", sender: nil)
         }
         
         else if connectivity() {

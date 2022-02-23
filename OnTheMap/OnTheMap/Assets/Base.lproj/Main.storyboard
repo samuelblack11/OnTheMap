@@ -55,7 +55,6 @@
                                         <state key="normal" title="Login"/>
                                         <connections>
                                             <action selector="loginTapped:" destination="K2s-ze-huY" eventType="touchUpInside" id="N4r-Mb-XFE"/>
-                                            <action selector="loginToMapSeg:" destination="K2s-ze-huY" eventType="touchUpInside" id="QEG-az-hQy"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -82,12 +81,12 @@
                         <outlet property="emailTextField" destination="kX1-uN-Pbo" id="otx-zV-fom"/>
                         <outlet property="loginButton" destination="Sjc-lI-qVl" id="h1g-ZH-WuF"/>
                         <outlet property="passwordTextField" destination="UwQ-Nt-igA" id="82g-ye-LBU"/>
-                        <segue destination="G18-YZ-HaT" kind="show" identifier="loginToMap" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" id="V5p-sO-GGX"/>
+                        <segue destination="G18-YZ-HaT" kind="show" identifier="loginToMap" id="Suh-WX-Hxq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e36-Tf-Hyg" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1075" y="-151"/>
+            <point key="canvasLocation" x="-1286" y="-151"/>
         </scene>
         <!--OnTheMapViewController-->
         <scene sceneID="9Jp-JN-Nu9">
@@ -144,8 +143,8 @@
                         <outlet property="logoutButton" destination="Hra-QE-RVK" id="kur-RQ-VDL"/>
                         <outlet property="mapToolBar" destination="bfs-uJ-iza" id="Oc1-un-All"/>
                         <outlet property="mapView" destination="yBV-63-NPr" id="N2W-FE-va0"/>
-                        <segue destination="fVN-nu-w1l" kind="show" identifier="mapToTable" customClass="OnTheMapVIeController" id="pWq-03-XM8"/>
-                        <segue destination="g6y-fI-W1o" kind="show" identifier="mapToPost" customClass="OnTheMapViewController" customModule="OnTheMap" customModuleProvider="target" id="AY9-qm-6Df"/>
+                        <segue destination="fVN-nu-w1l" kind="show" identifier="mapToTable" id="pWq-03-XM8"/>
+                        <segue destination="g6y-fI-W1o" kind="show" identifier="mapToPost" id="AY9-qm-6Df"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNd-kU-sH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -173,7 +172,7 @@
                                 <barButtonItem title="Map" image="map" catalog="system" id="4ur-jD-l4A" userLabel="Map">
                                     <connections>
                                         <action selector="pressMapButton:" destination="fVN-nu-w1l" id="epe-of-tZw"/>
-                                        <segue destination="G18-YZ-HaT" kind="show" identifier="tableToMap" customClass="PinTableViewController" customModule="OnTheMap" customModuleProvider="target" id="7R3-lV-pDV"/>
+                                        <segue destination="G18-YZ-HaT" kind="show" identifier="tableToMap" id="7R3-lV-pDV"/>
                                     </connections>
                                 </barButtonItem>
                                 <barButtonItem width="129" style="plain" systemItem="fixedSpace" id="fle-5h-O9C"/>
@@ -228,7 +227,7 @@
                     <navigationItem key="navigationItem" id="gkk-jM-0za"/>
                     <connections>
                         <outlet property="pinTableView" destination="0si-Mn-VOg" id="KkD-7P-nJH"/>
-                        <segue destination="g6y-fI-W1o" kind="show" identifier="tableToPost" customClass="PinTableViewController" customModule="OnTheMap" customModuleProvider="target" id="Bac-Je-uIH"/>
+                        <segue destination="g6y-fI-W1o" kind="show" identifier="tableToPost" id="Bac-Je-uIH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZq-dj-151" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -327,7 +326,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="AY9-qm-6Df"/>
-        <segue reference="V5p-sO-GGX"/>
+        <segue reference="Suh-WX-Hxq"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="map" catalog="system" width="128" height="110"/>

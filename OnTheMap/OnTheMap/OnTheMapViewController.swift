@@ -46,7 +46,8 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         
     @IBAction func clickLogout(_ sender: Any) {
         OTMClient.logout(completion: handleLogoutResponse(success:error:))
-        self.dismiss(animated: true, completion: nil)
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     func handleLogoutResponse(success: Bool, error: Error?) {
