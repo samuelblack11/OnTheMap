@@ -72,12 +72,12 @@ class OnTheMapViewController: UIViewController, MKMapViewDelegate {
         for pin in pins {
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
-            let latitude = CLLocationDegrees(pin.latitude!)
-            let longitude = CLLocationDegrees(pin.longitude!)
+            let latitude = CLLocationDegrees(pin.latitude)
+            let longitude = CLLocationDegrees(pin.longitude)
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let firstName = pin.firstName ?? "(No First Name Provided)"
-            let lastName = pin.lastName ?? "(No Last Name Provided)"
+            let firstName = pin.firstName
+            let lastName = pin.lastName
             let mediaURL = pin.mediaURL
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()

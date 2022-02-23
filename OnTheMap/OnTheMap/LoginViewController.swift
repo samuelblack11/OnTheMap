@@ -79,10 +79,14 @@ class LoginViewController: UIViewController {
         else if connectivity() {
             print("error in handleLoginResponse")
             // if bad credentials
-            showLoginFailure(title: "Login Failed", message: "Invalid Login Credentials")
+            DispatchQueue.main.async {
+                self.showLoginFailure(title: "The credentials were incorrect", message: "Please check your email and/or password.")
+            }
             }
         else {
-            showLoginFailure(title: "Login Failed", message: "No Internet Connection")
+            DispatchQueue.main.async {
+                self.showLoginFailure(title: "The Internet Connection if Offline", message: "Please Try Again Later")
+            }
         }
     }
      

@@ -15,8 +15,6 @@ import CoreLocation
 
 class PostPinViewController: UIViewController, UITextFieldDelegate {
     
-    
-    
     @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var dismissButton: UIBarButtonItem!
     
@@ -24,13 +22,8 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var urlBox: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var studentPins = [StudentInformation]()
     var studentPin: StudentInformation!
-    //var delegate: FinalizeCreatePinVCDelegate?
 
-
-
-    
        var geocoder = CLGeocoder()
        var latitude: Float = 0.0
        var longitude: Float = 0.0
@@ -52,8 +45,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
        
     
     @IBAction func dismissButtonPressed(_ sender: Any) {
-        let otmVC = storyboard?.instantiateViewController(identifier: "OnTheMapViewController") as! OnTheMapViewController
-        self.present(otmVC, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -66,7 +58,6 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
         }
     
     // https://github.com/jgerardo214/On-The-Map/blob/main/On%20the%20Map/Controller/InformationPostingVC.swift
-    
     @IBAction func submitButtonPressed(_ sender: Any) {
         print("check 1")
         if addressBox.text!.isEmpty {
@@ -85,10 +76,6 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
             print("else 3")
             }
         }
-
-    
-
-   
     func processAddress(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
         print("processAddress 1")
         if error != nil {

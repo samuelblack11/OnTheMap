@@ -149,27 +149,41 @@ class OTMClient {
     task.resume()
     }
     
-    
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, removeFirstCharacters: Bool, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionTask {
-            let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+        print("calling taskForGETRequest....")
+            let task = URLSession.shared.dataTask(with: URLRequest(url: url))
+        { data, response, error in
+            print("----------------")
+            print(url)
+            print(data)
+            print("----------------")
                 guard let data = data else {
                     DispatchQueue.main.async {
+                        print("data != data....")
                         completion(nil, error)
                     }
                     return
                 }
                 var newData = data
+                print("---------------")
+                print(newData)
                 if removeFirstCharacters {
                     let range = 5..<data.count
                     newData = newData.subdata(in: range) /* subset response data! */
                 }
                 let decoder = JSONDecoder()
                 do {
+                    
+                    let jsonResponse = try JSONSerialization.jsonObject(with: newData, options: []) as! [String:AnyObject]
+                    print(jsonResponse)
+                    print("-------------------")
                     let responseObject = try decoder.decode(ResponseType.self, from: newData)
+                    print("responseObject = decoded newData")
                     DispatchQueue.main.async {
                         completion(responseObject, nil)
                     }
                 } catch {
+                    print("catch block called")
                     DispatchQueue.main.async {
                         completion(nil, error)
                     }
@@ -248,7 +262,7 @@ class OTMClient {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        request.httpBody = "{\"uniqueKey\": \"12345\", \"firstName\": \"\(student.firstName!)\", \"lastName\": \"\(student.lastName!)\",\"mapString\": \"\(student.mapString!)\", \"mediaURL\": \"\(student.mediaURL!)\",\"latitude\": \(student.latitude!), \"longitude\": \(student.longitude!)}".data(using: .utf8)
+        request.httpBody = "{\"uniqueKey\": \"12345\", \"firstName\": \"\(student.firstName)\", \"lastName\": \"\(student.lastName)\",\"mapString\": \"\(student.mapString)\", \"mediaURL\": \"\(student.mediaURL)\",\"latitude\": \(student.latitude), \"longitude\": \(student.longitude)}".data(using: .utf8)
         
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
@@ -279,11 +293,13 @@ class OTMClient {
 
     // may go back to throws before curly bracket
     class func getPin(completion: @escaping ([StudentInformation], Error?) -> Void)  {
+        print("calling getPin....")
         let _ = taskForGETRequest(url: Endpoints.studentLoc.url, removeFirstCharacters: false, response: PinResponse.self, completion: { (response, error) in
             if let response = response {
+                print("resonse = response")
                 completion(response.results, nil)
             } else {
-                
+                print("resonse != response")
                 completion([], error)
             }
         })

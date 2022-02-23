@@ -13,16 +13,16 @@ import MapKit
 
 struct StudentInformation: Codable, Equatable {
             
-        let objectId: String?
-        let uniqueKey: String?
-        var firstName: String?
-        let lastName: String?
-        let mapString: String?
-        let mediaURL: String?
-        let latitude: Double?
-        let longitude: Double?
-        let createdAt: String?
-        let updatedAt: String?
+        let objectId: String
+        let uniqueKey: String
+        var firstName: String
+        let lastName: String
+        let mapString: String
+        let mediaURL: String
+        let latitude: Double
+        let longitude: Double
+        let createdAt: String
+        let updatedAt: String
     
     
     
@@ -30,7 +30,7 @@ struct StudentInformation: Codable, Equatable {
     enum CodingKeys: String, CodingKey {
         case objectId = "objectId"
         case uniqueKey = "uniqueKey"
-        case firstName = "firstNameTwo"
+        case firstName = "firstName"
         case lastName = "lastName"
         case mapString = "mapString"
         case mediaURL = "mediaURL"

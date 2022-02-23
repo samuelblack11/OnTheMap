@@ -9,4 +9,8 @@ import Foundation
 
 struct PinResponse: Codable {
     let results: [StudentInformation]
+    
+   // enum CodingKeys: String, CodingKey {
+    //    case results = "results"
+   // }
 }

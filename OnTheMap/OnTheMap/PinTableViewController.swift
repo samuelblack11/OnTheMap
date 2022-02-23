@@ -15,20 +15,16 @@ class PinTableViewCell: UITableViewCell {
 
 class PinTableViewController: UITableViewController {
     var selectedName: String = "PinTableViewController"
-    
-    // https://knowledge.udacity.com/questions/188630
-    var studentPins = [StudentInformation]()
 
-    @IBOutlet var pinTableView: UITableView!
+    var studentPins = Pins().pins
     
-    func viewDidLoad(_ animated: Bool) {
-        print("PinTableViewController viewDIDLOAD")
-        super.viewDidLoad()
-        pinTableView.delegate = self
-        pinTableView.dataSource = self
-        OTMClient.getPin(completion: handlePinResponse(pins: error:))
-        OTMClient.getPin(completion: handlePinResponse(pins: error:))
-    }
+   // func viewDidLoad(_ animated: Bool) {
+     //   print("PinTableViewController viewDIDLOAD")
+      //  super.viewDidLoad()
+        //tableView.delegate = self
+        //tableView.dataSource = self
+        //OTMClient.getPin(completion: handlePinResponse(pins: error:))
+    //}
     
     override func viewWillAppear(_ animated: Bool) {
         print("PinTableViewController viewWillAppear called")
@@ -39,10 +35,10 @@ class PinTableViewController: UITableViewController {
     func handlePinResponse(pins: [StudentInformation], error: Error?) {
             print("Starting handlePinResponse.....")
             if error == nil {
-                self.studentPins = pins
-                print("\(pins.count)")
+                studentPins = pins
+                print("Pins in handlePinResponse on PinTableViewController:")
+                print("\(studentPins.count)")
                 self.tableView.reloadData()
-                self.pinTableView.reloadData()
         } else {
             showFailure(title: "Unable to Get Pins", message: "Unable to Get Pins")
         }
@@ -61,7 +57,7 @@ class PinTableViewController: UITableViewController {
     
     
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberofRowsInSection: \(studentPins.count)")
+       print("numberofRowsInSection: \(studentPins.count)")
         return studentPins.count
     }
     
