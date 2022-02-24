@@ -76,17 +76,37 @@
                             <constraint firstItem="Lck-kN-VyG" firstAttribute="trailing" secondItem="ms3-9e-eYp" secondAttribute="trailing" constant="16" id="uFk-Gi-WgE"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="1Md-Dp-2yg"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Bhk-Az-cTO" id="loL-Pw-Nae"/>
                         <outlet property="emailTextField" destination="kX1-uN-Pbo" id="otx-zV-fom"/>
                         <outlet property="loginButton" destination="Sjc-lI-qVl" id="h1g-ZH-WuF"/>
                         <outlet property="passwordTextField" destination="UwQ-Nt-igA" id="82g-ye-LBU"/>
-                        <segue destination="G18-YZ-HaT" kind="show" identifier="loginToMap" id="Suh-WX-Hxq"/>
+                        <segue destination="QiC-E5-MHB" kind="show" identifier="loginToMap" id="g4E-np-OUz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e36-Tf-Hyg" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1286" y="-151"/>
+            <point key="canvasLocation" x="-1983" y="-212"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="dTc-eb-hkM">
+            <objects>
+                <tabBarController id="QiC-E5-MHB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="BdA-bC-oTe"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3C8-Rg-Ozd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="G18-YZ-HaT" kind="relationship" relationship="viewControllers" id="BEp-4g-nqi"/>
+                        <segue destination="fVN-nu-w1l" kind="relationship" relationship="viewControllers" id="X2X-9i-ZKD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AL7-Rh-tKQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-859" y="-212"/>
         </scene>
         <!--OnTheMapViewController-->
         <scene sceneID="9Jp-JN-Nu9">
@@ -97,7 +117,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yBV-63-NPr">
-                                <rect key="frame" x="0.0" y="44" width="414" height="764"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="715"/>
                                 <connections>
                                     <outlet property="delegate" destination="G18-YZ-HaT" id="6bN-jg-Vb9"/>
                                 </connections>
@@ -110,13 +130,7 @@
                                             <action selector="clickLogout:" destination="G18-YZ-HaT" id="gQi-Kl-aP8"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="109" style="plain" systemItem="fixedSpace" id="irT-ox-XCX"/>
-                                    <barButtonItem title="Table" image="table" catalog="system" id="k2W-Y9-Hoc" userLabel="Table">
-                                        <connections>
-                                            <action selector="pressTableButton:" destination="G18-YZ-HaT" id="Wat-Tj-ghb"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="133" style="plain" systemItem="fixedSpace" id="2hI-6M-aYk"/>
+                                    <barButtonItem width="283" style="plain" systemItem="fixedSpace" id="irT-ox-XCX"/>
                                     <barButtonItem title="Logout" image="mappin" catalog="system" id="GYD-a2-33i" userLabel="Pin">
                                         <connections>
                                             <action selector="pressPinButton:" destination="G18-YZ-HaT" id="u1n-FC-oux"/>
@@ -137,19 +151,18 @@
                             <constraint firstItem="yBV-63-NPr" firstAttribute="leading" secondItem="LY4-Qo-y88" secondAttribute="leading" id="zlv-13-6Vn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="mappin" catalog="system" id="6C9-Do-Xle" userLabel="map"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" id="6C9-Do-Xle" userLabel="map"/>
                     <navigationItem key="navigationItem" id="Mp4-gm-W83"/>
                     <connections>
                         <outlet property="logoutButton" destination="Hra-QE-RVK" id="kur-RQ-VDL"/>
                         <outlet property="mapToolBar" destination="bfs-uJ-iza" id="Oc1-un-All"/>
                         <outlet property="mapView" destination="yBV-63-NPr" id="N2W-FE-va0"/>
-                        <segue destination="fVN-nu-w1l" kind="show" identifier="mapToTable" id="pWq-03-XM8"/>
                         <segue destination="g6y-fI-W1o" kind="show" identifier="mapToPost" id="AY9-qm-6Df"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNd-kU-sH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-49" y="-151"/>
+            <point key="canvasLocation" x="161" y="260"/>
         </scene>
         <!--PinTableViewController-->
         <scene sceneID="XFR-vX-LkZ">
@@ -168,14 +181,7 @@
                                         <action selector="clickLogout:" destination="fVN-nu-w1l" id="d9v-qf-3oQ"/>
                                     </connections>
                                 </barButtonItem>
-                                <barButtonItem width="118" style="plain" systemItem="fixedSpace" id="rNK-lh-gjX"/>
-                                <barButtonItem title="Map" image="map" catalog="system" id="4ur-jD-l4A" userLabel="Map">
-                                    <connections>
-                                        <action selector="pressMapButton:" destination="fVN-nu-w1l" id="epe-of-tZw"/>
-                                        <segue destination="G18-YZ-HaT" kind="show" identifier="tableToMap" id="7R3-lV-pDV"/>
-                                    </connections>
-                                </barButtonItem>
-                                <barButtonItem width="129" style="plain" systemItem="fixedSpace" id="fle-5h-O9C"/>
+                                <barButtonItem width="280" style="plain" systemItem="fixedSpace" id="fle-5h-O9C"/>
                                 <barButtonItem title="Logout" image="mappin" catalog="system" id="YF4-bU-prd" userLabel="Pin">
                                     <connections>
                                         <action selector="pressPinButton:" destination="fVN-nu-w1l" id="H54-iq-eEq"/>
@@ -231,7 +237,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZq-dj-151" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1183" y="-498"/>
+            <point key="canvasLocation" x="161" y="-498"/>
         </scene>
         <!--PostPinViewController-->
         <scene sceneID="9BT-Ln-zOy">
@@ -320,18 +326,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMf-mC-fAp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184" y="374"/>
+            <point key="canvasLocation" x="1988" y="-50"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Bac-Je-uIH"/>
-        <segue reference="7R3-lV-pDV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="mappin" catalog="system" width="105" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="table" catalog="system" width="128" height="93"/>
         <image name="tablecells" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
