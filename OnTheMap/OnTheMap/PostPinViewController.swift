@@ -15,7 +15,7 @@ import CoreLocation
 
 class PostPinViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var submitButton: UIBarButtonItem!
+    @IBOutlet weak var findLocButton: UIBarButtonItem!
     @IBOutlet weak var dismissButton: UIBarButtonItem!
     
     @IBOutlet weak var addressBox: UITextField!
@@ -58,7 +58,7 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
         }
     
     // https://github.com/jgerardo214/On-The-Map/blob/main/On%20the%20Map/Controller/InformationPostingVC.swift
-    @IBAction func submitButtonPressed(_ sender: Any) {
+    @IBAction func findLocButtonPressed(_ sender: Any) {
         print("check 1")
         if addressBox.text!.isEmpty {
             print("addressbox empty")
@@ -91,69 +91,18 @@ class PostPinViewController: UIViewController, UITextFieldDelegate {
                 self.latitude = Float(coordinate.latitude)
                 self.longitude = Float(coordinate.longitude)
                 spinActivityIndicator(false)
-                let submitVC = storyboard?.instantiateViewController(identifier: "OnTheMapViewController") as! OnTheMapViewController
-                submitVC.userLoc = addressBox.text
-                submitVC.mediaURL = urlBox.text
+                let previewVC = storyboard?.instantiateViewController(identifier: "OnTheMapPreview") as! OnTheMapPreview
+                previewVC.userLoc = addressBox.text!
+                previewVC.mediaURL = urlBox.text!
                 //OTMClient.Endpoints.Auth.mediaURL = urlBox.text ?? "https://www.google.com"
-                submitVC.latitude = self.latitude
-                submitVC.longitude = self.longitude
-                self.present(submitVC, animated: true, completion: nil)
+                previewVC.latitude = self.latitude
+                previewVC.longitude = self.longitude
+                //previewVC.coordinate = location.coordinate
+                self.present(previewVC, animated: true, completion: nil)
                 print("process address Success")
-                
-                // Post the Pin
-                OTMClient.postPin(with: createStudentInstance(coordinate, url: submitVC.mediaURL), completion: { (success, error) in
-                if error != nil {
-                    self.showFailure(title: "Unable to Post Location", message: "Unable to Post Location")
-                    }
-                DispatchQueue.main.async {
-                    //self.delegate?.dismissFinalizeCreatePinVC()
-                    print("No error in Post")
-                    }
-                })            }
+                          }
         }
     }
-    
-    func createStudentInstance(_ coordinate: CLLocationCoordinate2D, url: String) -> StudentInformation {
-        // https://www.hackingwithswift.com/example-code/system/how-to-convert-dates-and-times-to-a-string-using-dateformatter
-        let today = Date()
-        let formatter1 = DateFormatter()
-        formatter1.dateStyle = .short
-        print(formatter1.string(from: today))
-        print("Trying to get user data......")
-
-        
-        OTMClient.getUserData(completion: handleUserData(bool:error:))
-        print("----------")
-        print("Got user data")
-
-        let studentPin = StudentInformation(objectId: "", uniqueKey: OTMClient.Endpoints.Auth.uniqueKey, firstName: OTMClient.Endpoints.Auth.firstName, lastName: OTMClient.Endpoints.Auth.lastName, mapString: "mapString", mediaURL: url, latitude: coordinate.latitude, longitude: coordinate.longitude, createdAt: formatter1.string(from: today), updatedAt: formatter1.string(from: today))
-
-        return studentPin
-    }
-    
-    
-    func handleUserData(bool: Bool, error: Error?) {
-        if bool {
-            ////////////////////////////////////
-            print("no error in handleUserData")
-        } else {
-            showFailure(title: "Not Possible to Get User Information", message: error?.localizedDescription ?? "")
-        }
-    }
-    
-    func handlePostStudentResponse(success: Bool, error: Error?) {
-        if success {
-            self.navigationController?.dismiss(animated: true, completion: nil)
-        } else {
-            showFailure(title: "Not Possible to Save Information", message: error?.localizedDescription ?? "")
-        }
-    }
-    
-
-
-    
-    
-                                  
     
     func spinActivityIndicator(_ searchingForAddress: Bool) {
         if searchingForAddress {

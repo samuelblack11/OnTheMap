@@ -261,8 +261,7 @@ class OTMClient {
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        request.httpBody = "{\"uniqueKey\": \"12345\", \"firstName\": \"\(student.firstName)\", \"lastName\": \"\(student.lastName)\",\"mapString\": \"\(student.mapString)\", \"mediaURL\": \"\(student.mediaURL)\",\"latitude\": \(student.latitude), \"longitude\": \(student.longitude)}".data(using: .utf8)
+        request.httpBody = "{\"uniqueKey\": \"\(student.uniqueKey)\", \"firstName\": \"\(student.firstName)\", \"lastName\": \"\(student.lastName)\",\"mapString\": \"\(student.mapString)\", \"mediaURL\": \"\(student.mediaURL)\",\"latitude\": \(student.latitude), \"longitude\": \(student.longitude)}".data(using: .utf8)
         
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
@@ -274,18 +273,35 @@ class OTMClient {
         task.resume()
     }
     
-    class func getUserData(completion: @escaping (Bool, Error?) -> Void) {
+    
+    class func postPin2(firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Float, longitude: Float, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        
+        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"12345\", \"firstName\": \"\(firstName)\", \"lastName\": \"\(lastName)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}".data(using: .utf8)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+          if error != nil { // Handle error…
+              return
+          }
+          print(String(data: data!, encoding: .utf8)!)
+        }
+        task.resume()
+    }
+    
+    
+    // removed -> Void
+    class func getUserData(completion: @escaping (String?, String?, Error?) -> Void) {
         taskForGETRequest(url: Endpoints.getUserData.url, removeFirstCharacters: true, response: UserInfoResponse.self, completion: { (response, error) in
             if let response = response {
                 OTMClient.Endpoints.Auth.firstName = response.firstName
                 OTMClient.Endpoints.Auth.lastName = response.lastName
-                print("getUserData -------")
-                print(OTMClient.Endpoints.Auth.firstName)
-                print(OTMClient.Endpoints.Auth.lastName)
-                completion(true, nil)
+                completion(response.firstName, response.lastName, nil)
 
             } else {
-                completion(false, error)
+                completion(nil, nil, error)
             }
         })
     }

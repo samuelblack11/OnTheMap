@@ -117,7 +117,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yBV-63-NPr">
-                                <rect key="frame" x="0.0" y="44" width="414" height="715"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="764"/>
                                 <connections>
                                     <outlet property="delegate" destination="G18-YZ-HaT" id="6bN-jg-Vb9"/>
                                 </connections>
@@ -162,7 +162,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNd-kU-sH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="161" y="260"/>
+            <point key="canvasLocation" x="209" y="305"/>
         </scene>
         <!--PinTableViewController-->
         <scene sceneID="XFR-vX-LkZ">
@@ -250,9 +250,9 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTi-Gp-Qcs">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Submit" id="ISs-cq-okK" userLabel="submit">
+                                    <barButtonItem title="Find Location" id="ISs-cq-okK" userLabel="findLocation">
                                         <connections>
-                                            <action selector="submitButtonPressed:" destination="g6y-fI-W1o" id="MSd-xO-g7e"/>
+                                            <action selector="findLocButtonPressed:" destination="g6y-fI-W1o" id="SkF-CV-ffr"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="263" style="plain" systemItem="fixedSpace" id="34o-YR-NBn"/>
@@ -320,7 +320,7 @@
                         <outlet property="activityIndicator" destination="1aB-h2-Wbj" id="hUH-9q-ODJ"/>
                         <outlet property="addressBox" destination="cmS-SI-lSE" id="mWW-8T-ZNx"/>
                         <outlet property="dismissButton" destination="4G8-xG-m4C" id="PXg-1z-eQS"/>
-                        <outlet property="submitButton" destination="ISs-cq-okK" id="fRx-Rz-tED"/>
+                        <outlet property="findLocButton" destination="ISs-cq-okK" id="CCZ-y7-WnG"/>
                         <outlet property="urlBox" destination="jdA-n0-4MK" id="JPV-jh-hht"/>
                     </connections>
                 </viewController>
@@ -328,9 +328,73 @@
             </objects>
             <point key="canvasLocation" x="1988" y="-50"/>
         </scene>
+        <!--OnTheMapPreview-->
+        <scene sceneID="6r8-vC-8tP">
+            <objects>
+                <viewController restorationIdentifier="OnTheMapPreview" storyboardIdentifier="OnTheMapPreview" title="OnTheMapViewController" id="C1J-7H-2SP" userLabel="OnTheMapPreview" customClass="OnTheMapPreview" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KX1-fS-fdt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="N9n-7u-JiM">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <connections>
+                                    <outlet property="delegate" destination="C1J-7H-2SP" id="6sV-XA-zUT"/>
+                                </connections>
+                            </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yBW-SE-Ip1">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem title="Logout" id="E9W-pk-lmA" userLabel="Logout">
+                                        <connections>
+                                            <action selector="clickLogout:" destination="C1J-7H-2SP" id="91I-GK-LUi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="94" style="plain" systemItem="fixedSpace" id="Sot-Rt-ZZZ"/>
+                                    <barButtonItem title="Submit" id="Wsa-Yj-KjI" userLabel="Submit">
+                                        <connections>
+                                            <action selector="pressSubmit:" destination="C1J-7H-2SP" id="C3F-dk-KDP"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="110" style="plain" systemItem="fixedSpace" id="ciP-Vb-Oxk"/>
+                                    <barButtonItem title="Logout" image="mappin" catalog="system" id="D9u-fd-04g" userLabel="Pin">
+                                        <connections>
+                                            <action selector="pressPinButton:" destination="C1J-7H-2SP" id="gzr-a3-EhC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="GGs-x5-NUQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yBW-SE-Ip1" firstAttribute="trailing" secondItem="GGs-x5-NUQ" secondAttribute="trailing" id="HdU-6X-UKI"/>
+                            <constraint firstItem="yBW-SE-Ip1" firstAttribute="top" secondItem="GGs-x5-NUQ" secondAttribute="top" id="Hde-hJ-lOl"/>
+                            <constraint firstItem="N9n-7u-JiM" firstAttribute="bottom" secondItem="GGs-x5-NUQ" secondAttribute="bottom" id="K0T-mp-QCy"/>
+                            <constraint firstItem="N9n-7u-JiM" firstAttribute="top" secondItem="yBW-SE-Ip1" secondAttribute="bottom" id="KZ0-wq-jva"/>
+                            <constraint firstItem="N9n-7u-JiM" firstAttribute="leading" secondItem="GGs-x5-NUQ" secondAttribute="leading" id="Ril-xt-pHG"/>
+                            <constraint firstItem="GGs-x5-NUQ" firstAttribute="trailing" secondItem="N9n-7u-JiM" secondAttribute="trailing" id="Ze4-hm-WsL"/>
+                            <constraint firstItem="yBW-SE-Ip1" firstAttribute="leading" secondItem="GGs-x5-NUQ" secondAttribute="leading" id="xAe-cq-htV"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" id="OP5-HS-Kze" userLabel="map"/>
+                    <navigationItem key="navigationItem" id="uvt-xd-w2d"/>
+                    <connections>
+                        <outlet property="logoutButton" destination="E9W-pk-lmA" id="h1l-AJ-c4q"/>
+                        <outlet property="mapToolBar" destination="yBW-SE-Ip1" id="fyA-1Q-Sij"/>
+                        <outlet property="mapView" destination="N9n-7u-JiM" id="83W-0k-MBH"/>
+                        <segue destination="G18-YZ-HaT" kind="show" identifier="previewToMap" id="FfJ-cQ-Cay"/>
+                        <segue destination="g6y-fI-W1o" kind="show" identifier="previewToPost" id="Zp6-sv-cef"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I0w-qO-d2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1987" y="688"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bac-Je-uIH"/>
+        <segue reference="Zp6-sv-cef"/>
+        <segue reference="FfJ-cQ-Cay"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="map" catalog="system" width="128" height="110"/>

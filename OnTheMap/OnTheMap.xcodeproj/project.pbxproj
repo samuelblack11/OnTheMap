@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		261B097E27B1D81200EFAFA2 /* Pins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261B097D27B1D81200EFAFA2 /* Pins.swift */; };
+		262AE26D27C7B4610019F2A9 /* OnTheMapPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262AE26C27C7B4610019F2A9 /* OnTheMapPreview.swift */; };
 		262E6C5727C2ED4700C4C451 /* UserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262E6C5627C2ED4700C4C451 /* UserInfoResponse.swift */; };
 		263EAA1127B03A5B003135B4 /* MapTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263EAA1027B03A5B003135B4 /* MapTabBarController.swift */; };
 		26509C4B27B01B6B00B3552E /* PostPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26509C4A27B01B6B00B3552E /* PostPinViewController.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		261B097D27B1D81200EFAFA2 /* Pins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pins.swift; sourceTree = "<group>"; };
+		262AE26C27C7B4610019F2A9 /* OnTheMapPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapPreview.swift; sourceTree = "<group>"; };
 		262E6C5627C2ED4700C4C451 /* UserInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoResponse.swift; sourceTree = "<group>"; };
 		263EAA1027B03A5B003135B4 /* MapTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTabBarController.swift; sourceTree = "<group>"; };
 		26509C4A27B01B6B00B3552E /* PostPinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPinViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				26D9947227AF072800A5FE73 /* PinTableViewController.swift */,
 				26509C4A27B01B6B00B3552E /* PostPinViewController.swift */,
 				263EAA1027B03A5B003135B4 /* MapTabBarController.swift */,
+				262AE26C27C7B4610019F2A9 /* OnTheMapPreview.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				262E6C5727C2ED4700C4C451 /* UserInfoResponse.swift in Sources */,
 				261B097E27B1D81200EFAFA2 /* Pins.swift in Sources */,
 				2689909D279F778E00844D1D /* PinResponse.swift in Sources */,
+				262AE26D27C7B4610019F2A9 /* OnTheMapPreview.swift in Sources */,
 				263EAA1127B03A5B003135B4 /* MapTabBarController.swift in Sources */,
 				26707D7F279CC0610006CFD9 /* LoginViewController.swift in Sources */,
 				26707DA1279CC5080006CFD9 /* LogoutRequest.swift in Sources */,
