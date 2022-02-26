@@ -61,7 +61,9 @@ class LoginViewController: UIViewController {
 
         } else {
             print("error in handleLoginResponse")
-            showLoginFailure(title: "Login Failed", message: error?.localizedDescription ?? "")
+            DispatchQueue.main.async {
+                self.showLoginFailure(title: "Login Failed", message: error?.localizedDescription ?? "")
+            }
         }
     }
         

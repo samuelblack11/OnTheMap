@@ -173,7 +173,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pbc-vm-E7d" userLabel="Table Tool Bar">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="-54" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem title="Logout" id="n77-q4-OHK" userLabel="Logout">
@@ -350,16 +350,14 @@
                                             <action selector="clickLogout:" destination="C1J-7H-2SP" id="91I-GK-LUi"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="94" style="plain" systemItem="fixedSpace" id="Sot-Rt-ZZZ"/>
-                                    <barButtonItem title="Submit" id="Wsa-Yj-KjI" userLabel="Submit">
+                                    <barButtonItem title="Submit" width="236" id="Wsa-Yj-KjI" userLabel="Submit">
                                         <connections>
                                             <action selector="pressSubmit:" destination="C1J-7H-2SP" id="C3F-dk-KDP"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="110" style="plain" systemItem="fixedSpace" id="ciP-Vb-Oxk"/>
-                                    <barButtonItem title="Logout" image="mappin" catalog="system" id="D9u-fd-04g" userLabel="Pin">
+                                    <barButtonItem title="Dismiss" id="wBf-ps-s5e" userLabel="Dismiss">
                                         <connections>
-                                            <action selector="pressPinButton:" destination="C1J-7H-2SP" id="gzr-a3-EhC"/>
+                                            <action selector="pressDismissButton:" destination="C1J-7H-2SP" id="Dlu-w4-DSM"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

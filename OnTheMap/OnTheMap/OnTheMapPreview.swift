@@ -97,8 +97,8 @@ class OnTheMapPreview: UIViewController, MKMapViewDelegate {
         self.mapView.addAnnotations(annotations)
     }
     
-    @IBAction func pressPinButton(_ sender: Any) {
-        performSegue(withIdentifier: "previewToPost", sender: nil)
+    @IBAction func pressDismissButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -113,18 +113,19 @@ class OnTheMapPreview: UIViewController, MKMapViewDelegate {
         let lat:Double = Double(latitude)
         let long:Double = Double(longitude)
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        OTMClient.postPin(with: createStudentInstance(coordinate, url: mediaURL), completion: { (success, error) in
-        if error != nil {
+        OTMClient.postPinForPreview(with: createStudentInstance(coordinate, url: mediaURL), completion: handlePostPreview(success:error:))
+    }
+    
+    
+    
+    
+    func handlePostPreview(success: Bool, error: Error?) {
+        if success {
+            print("no error in handlePostStudentResponse -----")
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
             self.showFailure(title: "Unable to Post Location", message: "Unable to Post Location")
-            }
-        DispatchQueue.main.async {
-            //self.delegate?.dismissFinalizeCreatePinVC()
-            print("No error in Post")
-            }
-        })
-        
-        performSegue(withIdentifier: "previewToMap", sender: nil)
-
+        }
     }
     
     func createStudentInstance(_ coordinate: CLLocationCoordinate2D, url: String) -> StudentInformation {
@@ -136,16 +137,24 @@ class OnTheMapPreview: UIViewController, MKMapViewDelegate {
         OTMClient.getUserData(completion: handleUserData(firstName:lastName:error:))
 
         let studentPin = StudentInformation(objectId: "", uniqueKey: OTMClient.Endpoints.Auth.uniqueKey, firstName: OTMClient.Endpoints.Auth.firstName, lastName: OTMClient.Endpoints.Auth.lastName, mapString: "mapString", mediaURL: url, latitude: coordinate.latitude, longitude: coordinate.longitude, createdAt: formatter1.string(from: today), updatedAt: formatter1.string(from: today))
+        
         return studentPin
     }
     
     func handleUserData(firstName: String?, lastName: String?, error: Error?) {
         if error == nil {
             
-            OTMClient.postPin2(firstName: firstName!, lastName: lastName!, mapString: self.mapString, mediaURL: self.mediaURL, latitude: self.latitude, longitude: self.longitude, completion: handlePostStudentResponse(success:error:))
+            OTMClient.postPinToServer(firstName: firstName!, lastName: lastName!, mapString: self.mapString, mediaURL: self.mediaURL, latitude: self.latitude, longitude: self.longitude, completion: handlePostStudentResponse(success:error:))
             
          print("no error in handleUserData -----")
-            
+            //self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+
+            let mapVC = storyboard?.instantiateViewController(identifier: "OnTheMapViewController") as! OnTheMapViewController
+            let previewVC = storyboard?.instantiateViewController(identifier: "OnTheMapPreview") as! OnTheMapPreview
+
+            self.present(mapVC, animated: true, completion: nil)
+            previewVC.dismiss(animated: true, completion: nil)
+
         } else {
             showFailure(title: "Not Possible to Get User Information", message: error?.localizedDescription ?? "")
         }
@@ -153,7 +162,7 @@ class OnTheMapPreview: UIViewController, MKMapViewDelegate {
     
     func handlePostStudentResponse(success: Bool, error: Error?) {
         if success {
-            self.navigationController?.dismiss(animated: true, completion: nil)
+            print("no error in handlePostStudentResponse -----")
         } else {
             showFailure(title: "Not Possible to Save Information", message: error?.localizedDescription ?? "")
         }

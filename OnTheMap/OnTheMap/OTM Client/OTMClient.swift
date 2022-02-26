@@ -257,7 +257,8 @@ class OTMClient {
 
     
     // https://github.com/Casben/OnTheMap/blob/master/OnTheMap/Networking/NetworkManager.swift
-    class func postPin(with student: StudentInformation, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+    //class func postPinForPreview(with student: StudentInformation, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+    class func postPinForPreview(with student: StudentInformation, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -268,13 +269,18 @@ class OTMClient {
           if error != nil { // Handle error…
               return
           }
+            if error == nil {
+               // self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                print("postPinForPreview no error ---")
+            }
           print(String(data: data!, encoding: .utf8)!)
         }
-        task.resume()
+        //task.resume()
     }
+
     
     
-    class func postPin2(firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Float, longitude: Float, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+    class func postPinToServer(firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Float, longitude: Float, completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
         request.httpMethod = "POST"
